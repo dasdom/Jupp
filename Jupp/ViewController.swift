@@ -10,11 +10,12 @@ import UIKit
 import PostToADN
 import KeychainAccess
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITextViewDelegate {
     
     var accessToken: String?
     
     @IBOutlet weak var postTextView: UITextView!
+    @IBOutlet weak var characterCountLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,11 +36,19 @@ class ViewController: UIViewController {
         }
         
         postTextView.becomeFirstResponder()
+        updateCharacterCount()
     }
     
     @IBAction func post(sender: AnyObject) {
+        var errorMessage: String?
         if postTextView.text.utf16Count < 1 {
-            let alertController = UIAlertController(title: NSLocalizedString("Error", comment: "Error message title"), message: NSLocalizedString("A post should have at least one character.", comment: "Empty post alert message"), preferredStyle: .Alert)
+            errorMessage = NSLocalizedString("A post should have at least one character.", comment: "Empty post alert message")
+        } else if postTextView.text.utf16Count > 256 {
+            errorMessage = NSLocalizedString("A post cannot have more than 256 characters.", comment: "To many characters alert message")
+        }
+        
+        if errorMessage != nil {
+            let alertController = UIAlertController(title: NSLocalizedString("Error", comment: "Error message title"), message: errorMessage, preferredStyle: .Alert)
             let okAction = UIAlertAction(title: NSLocalizedString("OK", comment: "Ok button title"), style: .Default, handler: nil)
             alertController.addAction(okAction)
             presentViewController(alertController, animated: true, completion: nil)
@@ -55,6 +64,7 @@ class ViewController: UIViewController {
             
             dispatch_async(dispatch_get_main_queue(), {
                 self.postTextView.text = ""
+                self.updateCharacterCount()
             })
             
         })
@@ -64,6 +74,22 @@ class ViewController: UIViewController {
     
     @IBAction func deleteText(sender: AnyObject) {
         postTextView.text = ""
+        updateCharacterCount()
+    }
+    
+    func textViewDidChange(textView: UITextView!) {
+        updateCharacterCount()
+    }
+    
+    private func updateCharacterCount() {
+        let count = 256 - postTextView.text.utf16Count
+        characterCountLabel.text = "\(count)"
+        if count < 5 && count >= 0 {
+            characterCountLabel.textColor = UIColor.blackColor()
+        } else if count < 0 {
+            characterCountLabel.textColor = UIColor.redColor()
+        } else {
+            characterCountLabel.textColor = UIColor.lightGrayColor()
+        }
     }
 }
-

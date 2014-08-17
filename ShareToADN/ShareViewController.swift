@@ -34,8 +34,9 @@ class ShareViewController: SLComposeServiceViewController, NSURLSessionDelegate 
     }
     
     override func isContentValid() -> Bool {
-        // Do validation of contentText and/or NSExtensionContext attachments here
-        return true
+        charactersRemaining = 256 - contentText.utf16Count
+        
+        return contentText.utf16Count < 256
     }
 
     override func didSelectPost() {
