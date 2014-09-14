@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="nwr-LH-fL0">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+    </dependencies>
+    <scenes>
+        <!--Time Line View Controller-->
+        <scene sceneID="nGU-Zt-z7r">
+            <objects>
+                <tableViewController id="Sj8-pC-eaY" customClass="TimeLineViewController" customModule="Jupp" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="0hy-n1-JkB">
+                        <rect key="frame" x="0.0" y="64" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="aeS-PW-YXn">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aeS-PW-YXn" id="TBA-iv-Kmr">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Sj8-pC-eaY" id="bEj-8Y-qnP"/>
+                            <outlet property="delegate" destination="Sj8-pC-eaY" id="DJh-q7-G9A"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="heQ-xu-Hhw"/>
+                    <connections>
+                        <outlet property="dataSource" destination="8gR-TE-qDn" id="WrM-bF-jxY"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0Ed-4F-yoO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <customObject id="8gR-TE-qDn" customClass="TimeLineDataSource" customModule="Jupp" customModuleProvider="target">
+                    <connections>
+                        <outlet property="viewController" destination="Sj8-pC-eaY" id="ww5-Ww-2N0"/>
+                    </connections>
+                </customObject>
+            </objects>
+            <point key="canvasLocation" x="2409" y="815"/>
+        </scene>
+        <!--Time Line-->
+        <scene sceneID="K7X-d3-Rxi">
+            <objects>
+                <navigationController title="Time Line" automaticallyAdjustsScrollViewInsets="NO" id="nwr-LH-fL0" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="B3g-Hm-GhJ"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Ysi-uF-0pp">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Sj8-pC-eaY" kind="relationship" relationship="rootViewController" id="PnG-MZ-aXq"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eyK-s6-kUy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1597" y="815"/>
+        </scene>
+    </scenes>
+</document>

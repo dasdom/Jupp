@@ -19,10 +19,10 @@ class ShareViewController: SLComposeServiceViewController, NSURLSessionDelegate 
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
-        let inputItem = self.extensionContext.inputItems.first as NSExtensionItem
-        println("\(self.extensionContext.inputItems)")
+        let inputItem = self.extensionContext!.inputItems.first as NSExtensionItem
+        println("\(self.extensionContext!.inputItems)")
         
-        if let urlProvider = inputItem.attachments.first as? NSItemProvider {
+        if let urlProvider = inputItem.attachments!.first as? NSItemProvider {
             urlProvider.loadItemForTypeIdentifier("public.url", options: nil) {
                 (decoder: NSSecureCoding!, error: NSError!) -> Void in
                 if let url = decoder as? NSURL {
@@ -46,17 +46,18 @@ class ShareViewController: SLComposeServiceViewController, NSURLSessionDelegate 
             return
         }
         
-        let inputItem = self.extensionContext.inputItems.first as NSExtensionItem
-        println("\(self.extensionContext.inputItems)")
+        let inputItem = self.extensionContext!.inputItems.first as NSExtensionItem
+        println("\(self.extensionContext!.inputItems)")
         
-        if let urlProvider = inputItem.attachments.first as? NSItemProvider {
+        if let urlProvider = inputItem.attachments!.first as? NSItemProvider {
             urlProvider.loadItemForTypeIdentifier(kUTTypeURL as NSString, options: nil) {
                 (decoder: NSSecureCoding!, error: NSError!) -> Void in
                 if let url = decoder as? NSURL {
                     println("\(url.absoluteString)")
 
                     let length = self.contentText.utf16Count
-                    let linksArray: [[String:String]] = [["url" : url.absoluteString, "pos": "0", "len": "\(length)"]]
+                    let linkDict = ["url" : url.absoluteString!, "pos": "0", "len": "\(length)"]
+                    let linksArray: [[String:String]] = [linkDict]
                     
                     let urlSessionConfiguration = NSURLSessionConfiguration.defaultSessionConfiguration()
                     self.urlSession = NSURLSession(configuration: urlSessionConfiguration, delegate: self, delegateQueue: nil)
@@ -66,7 +67,7 @@ class ShareViewController: SLComposeServiceViewController, NSURLSessionDelegate 
                         println("response: \(response)")
                         let responseString = NSString(data: data, encoding: NSUTF8StringEncoding)
                         println("responseString: \(responseString)")
-                        self.extensionContext.completeRequestReturningItems(nil, completionHandler: nil)
+                        self.extensionContext!.completeRequestReturningItems(nil, completionHandler: nil)
                     })
                     
                     urlSessionTask.resume()

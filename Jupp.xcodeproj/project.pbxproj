@@ -14,6 +14,31 @@
 		F2049CF819961FF300047E23 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2049CF719961FF300047E23 /* ShareViewController.swift */; };
 		F2049CFA19961FF300047E23 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2049CF919961FF300047E23 /* MainInterface.storyboard */; };
 		F2049CFD19961FF300047E23 /* ShareToADN.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = F2049CF319961FF300047E23 /* ShareToADN.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		F269BE8D19B9A0C0009CEF03 /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F269BE7A19B9A0C0009CEF03 /* PostCell.swift */; };
+		F269BE8E19B9A0C0009CEF03 /* ADNRequestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F269BE7C19B9A0C0009CEF03 /* ADNRequestFactory.swift */; };
+		F269BE8F19B9A0C0009CEF03 /* APICommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F269BE7D19B9A0C0009CEF03 /* APICommunicator.swift */; };
+		F269BE9019B9A0C0009CEF03 /* PostsParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F269BE7E19B9A0C0009CEF03 /* PostsParser.swift */; };
+		F269BE9119B9A0C0009CEF03 /* Mention.swift in Sources */ = {isa = PBXBuildFile; fileRef = F269BE8019B9A0C0009CEF03 /* Mention.swift */; };
+		F269BE9219B9A0C0009CEF03 /* MentionBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F269BE8119B9A0C0009CEF03 /* MentionBuilder.swift */; };
+		F269BE9319B9A0C0009CEF03 /* Meta.swift in Sources */ = {isa = PBXBuildFile; fileRef = F269BE8219B9A0C0009CEF03 /* Meta.swift */; };
+		F269BE9419B9A0C0009CEF03 /* MetaBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F269BE8319B9A0C0009CEF03 /* MetaBuilder.swift */; };
+		F269BE9519B9A0C0009CEF03 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = F269BE8419B9A0C0009CEF03 /* Post.swift */; };
+		F269BE9619B9A0C0009CEF03 /* PostBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F269BE8519B9A0C0009CEF03 /* PostBuilder.swift */; };
+		F269BE9719B9A0C0009CEF03 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F269BE8619B9A0C0009CEF03 /* User.swift */; };
+		F269BE9819B9A0C0009CEF03 /* UserBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F269BE8719B9A0C0009CEF03 /* UserBuilder.swift */; };
+		F269BE9919B9A0C0009CEF03 /* TableViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F269BE8919B9A0C0009CEF03 /* TableViewProtocol.swift */; };
+		F269BE9A19B9A0C0009CEF03 /* TimeLineDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = F269BE8B19B9A0C0009CEF03 /* TimeLineDataSource.swift */; };
+		F269BE9B19B9A0C0009CEF03 /* TimeLineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F269BE8C19B9A0C0009CEF03 /* TimeLineViewController.swift */; };
+		F28EF0E019C565FA0096CA48 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F28EF0DF19C565FA0096CA48 /* LaunchScreen.storyboard */; };
+		F28EF0E219C5B75E0096CA48 /* ClientData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F28EF0E119C5B75E0096CA48 /* ClientData.swift */; };
+		F292785E19BB29FC00515086 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F292785D19BB29FC00515086 /* SettingsTableViewController.swift */; };
+		F292786219BB2D1D00515086 /* StringDrawingOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = F292786119BB2D1D00515086 /* StringDrawingOptions.m */; };
+		F292786419BC234F00515086 /* Link.swift in Sources */ = {isa = PBXBuildFile; fileRef = F292786319BC234F00515086 /* Link.swift */; };
+		F292786619BC24CA00515086 /* LinkBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F292786519BC24CA00515086 /* LinkBuilder.swift */; };
+		F292789519BC349400515086 /* HeightCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F292789419BC349400515086 /* HeightCalculator.swift */; };
+		F292789819BC3FAD00515086 /* NSAttributedString+HeightCalculation.m in Sources */ = {isa = PBXBuildFile; fileRef = F292789719BC3FAD00515086 /* NSAttributedString+HeightCalculation.m */; };
+		F292789B19BE1F4D00515086 /* LinkExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F292789A19BE1F4D00515086 /* LinkExtractor.swift */; };
+		F292789D19BE1FBB00515086 /* LinkExtractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F292789C19BE1FBB00515086 /* LinkExtractorTests.swift */; };
 		F29F81FB199FA739009A5C3C /* KeychainAccess.h in Headers */ = {isa = PBXBuildFile; fileRef = F29F81FA199FA739009A5C3C /* KeychainAccess.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F29F8207199FA739009A5C3C /* KeychainAccessTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29F8206199FA739009A5C3C /* KeychainAccessTests.swift */; };
 		F29F820A199FA739009A5C3C /* KeychainAccess.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F29F81F6199FA739009A5C3C /* KeychainAccess.framework */; };
@@ -24,10 +49,10 @@
 		F2B9A88719978793002575FD /* RequestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B9A88619978793002575FD /* RequestFactory.swift */; };
 		F2B9A888199788CB002575FD /* PostToADN.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2049CD01995F64300047E23 /* PostToADN.framework */; };
 		F2E0ECD71995EC4100854B6D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E0ECD61995EC4100854B6D /* AppDelegate.swift */; };
-		F2E0ECD91995EC4100854B6D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E0ECD81995EC4100854B6D /* ViewController.swift */; };
-		F2E0ECDC1995EC4100854B6D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2E0ECDA1995EC4100854B6D /* Main.storyboard */; };
+		F2E0ECD91995EC4100854B6D /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E0ECD81995EC4100854B6D /* PostViewController.swift */; };
+		F2E0ECDC1995EC4100854B6D /* Post.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2E0ECDA1995EC4100854B6D /* Post.storyboard */; };
 		F2E0ECDE1995EC4100854B6D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2E0ECDD1995EC4100854B6D /* Images.xcassets */; };
-		F2E0ECEA1995EC4100854B6D /* JuppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E0ECE91995EC4100854B6D /* JuppTests.swift */; };
+		F2F6911D19BA4BCE008BABB6 /* TimeLine.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2F6911C19BA4BCE008BABB6 /* TimeLine.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -135,6 +160,34 @@
 		F2049CF919961FF300047E23 /* MainInterface.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MainInterface.storyboard; sourceTree = "<group>"; };
 		F246C13F199785E600271001 /* Jupp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Jupp.entitlements; sourceTree = "<group>"; };
 		F246C140199785F500271001 /* ShareToADN.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = ShareToADN.entitlements; sourceTree = "<group>"; };
+		F269BE7A19B9A0C0009CEF03 /* PostCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
+		F269BE7C19B9A0C0009CEF03 /* ADNRequestFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ADNRequestFactory.swift; sourceTree = "<group>"; };
+		F269BE7D19B9A0C0009CEF03 /* APICommunicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APICommunicator.swift; sourceTree = "<group>"; };
+		F269BE7E19B9A0C0009CEF03 /* PostsParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostsParser.swift; sourceTree = "<group>"; };
+		F269BE8019B9A0C0009CEF03 /* Mention.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mention.swift; sourceTree = "<group>"; };
+		F269BE8119B9A0C0009CEF03 /* MentionBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionBuilder.swift; sourceTree = "<group>"; };
+		F269BE8219B9A0C0009CEF03 /* Meta.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Meta.swift; sourceTree = "<group>"; };
+		F269BE8319B9A0C0009CEF03 /* MetaBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetaBuilder.swift; sourceTree = "<group>"; };
+		F269BE8419B9A0C0009CEF03 /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		F269BE8519B9A0C0009CEF03 /* PostBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostBuilder.swift; sourceTree = "<group>"; };
+		F269BE8619B9A0C0009CEF03 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		F269BE8719B9A0C0009CEF03 /* UserBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserBuilder.swift; sourceTree = "<group>"; };
+		F269BE8919B9A0C0009CEF03 /* TableViewProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewProtocol.swift; sourceTree = "<group>"; };
+		F269BE8B19B9A0C0009CEF03 /* TimeLineDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeLineDataSource.swift; sourceTree = "<group>"; };
+		F269BE8C19B9A0C0009CEF03 /* TimeLineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeLineViewController.swift; sourceTree = "<group>"; };
+		F28EF0DF19C565FA0096CA48 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		F28EF0E119C5B75E0096CA48 /* ClientData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientData.swift; sourceTree = "<group>"; };
+		F292785D19BB29FC00515086 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsTableViewController.swift; path = Settings/SettingsTableViewController.swift; sourceTree = "<group>"; };
+		F292785F19BB2D1D00515086 /* Jupp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Jupp-Bridging-Header.h"; sourceTree = "<group>"; };
+		F292786019BB2D1D00515086 /* StringDrawingOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringDrawingOptions.h; sourceTree = "<group>"; };
+		F292786119BB2D1D00515086 /* StringDrawingOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StringDrawingOptions.m; sourceTree = "<group>"; };
+		F292786319BC234F00515086 /* Link.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Link.swift; sourceTree = "<group>"; };
+		F292786519BC24CA00515086 /* LinkBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkBuilder.swift; sourceTree = "<group>"; };
+		F292789419BC349400515086 /* HeightCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeightCalculator.swift; sourceTree = "<group>"; };
+		F292789619BC3FAD00515086 /* NSAttributedString+HeightCalculation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+HeightCalculation.h"; sourceTree = "<group>"; };
+		F292789719BC3FAD00515086 /* NSAttributedString+HeightCalculation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+HeightCalculation.m"; sourceTree = "<group>"; };
+		F292789A19BE1F4D00515086 /* LinkExtractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkExtractor.swift; sourceTree = "<group>"; };
+		F292789C19BE1FBB00515086 /* LinkExtractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkExtractorTests.swift; sourceTree = "<group>"; };
 		F29F81F6199FA739009A5C3C /* KeychainAccess.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = KeychainAccess.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F29F81F9199FA739009A5C3C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F29F81FA199FA739009A5C3C /* KeychainAccess.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeychainAccess.h; sourceTree = "<group>"; };
@@ -147,12 +200,12 @@
 		F2E0ECD11995EC4100854B6D /* Jupp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Jupp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2E0ECD51995EC4100854B6D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F2E0ECD61995EC4100854B6D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		F2E0ECD81995EC4100854B6D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		F2E0ECDB1995EC4100854B6D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		F2E0ECD81995EC4100854B6D /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
+		F2E0ECDB1995EC4100854B6D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Post.storyboard; sourceTree = "<group>"; };
 		F2E0ECDD1995EC4100854B6D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		F2E0ECE31995EC4100854B6D /* JuppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JuppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2E0ECE81995EC4100854B6D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F2E0ECE91995EC4100854B6D /* JuppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JuppTests.swift; sourceTree = "<group>"; };
+		F2F6911C19BA4BCE008BABB6 /* TimeLine.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TimeLine.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -265,6 +318,72 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		F269BE7919B9A0C0009CEF03 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				F269BE7A19B9A0C0009CEF03 /* PostCell.swift */,
+				F292789419BC349400515086 /* HeightCalculator.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		F269BE7B19B9A0C0009CEF03 /* DataFetch */ = {
+			isa = PBXGroup;
+			children = (
+				F269BE7C19B9A0C0009CEF03 /* ADNRequestFactory.swift */,
+				F269BE7D19B9A0C0009CEF03 /* APICommunicator.swift */,
+				F269BE7E19B9A0C0009CEF03 /* PostsParser.swift */,
+			);
+			path = DataFetch;
+			sourceTree = "<group>";
+		};
+		F269BE7F19B9A0C0009CEF03 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F269BE8019B9A0C0009CEF03 /* Mention.swift */,
+				F269BE8119B9A0C0009CEF03 /* MentionBuilder.swift */,
+				F292786319BC234F00515086 /* Link.swift */,
+				F292786519BC24CA00515086 /* LinkBuilder.swift */,
+				F269BE8219B9A0C0009CEF03 /* Meta.swift */,
+				F269BE8319B9A0C0009CEF03 /* MetaBuilder.swift */,
+				F269BE8419B9A0C0009CEF03 /* Post.swift */,
+				F269BE8519B9A0C0009CEF03 /* PostBuilder.swift */,
+				F269BE8619B9A0C0009CEF03 /* User.swift */,
+				F269BE8719B9A0C0009CEF03 /* UserBuilder.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		F269BE8819B9A0C0009CEF03 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				F269BE8919B9A0C0009CEF03 /* TableViewProtocol.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		F269BE8A19B9A0C0009CEF03 /* TimeLine */ = {
+			isa = PBXGroup;
+			children = (
+				F269BE8B19B9A0C0009CEF03 /* TimeLineDataSource.swift */,
+				F269BE8C19B9A0C0009CEF03 /* TimeLineViewController.swift */,
+				F292786019BB2D1D00515086 /* StringDrawingOptions.h */,
+				F292786119BB2D1D00515086 /* StringDrawingOptions.m */,
+				F292789619BC3FAD00515086 /* NSAttributedString+HeightCalculation.h */,
+				F292789719BC3FAD00515086 /* NSAttributedString+HeightCalculation.m */,
+				F292785F19BB2D1D00515086 /* Jupp-Bridging-Header.h */,
+			);
+			path = TimeLine;
+			sourceTree = "<group>";
+		};
+		F292789919BE1F4D00515086 /* HelperClasses */ = {
+			isa = PBXGroup;
+			children = (
+				F292789A19BE1F4D00515086 /* LinkExtractor.swift */,
+			);
+			path = HelperClasses;
+			sourceTree = "<group>";
+		};
 		F29F81F7199FA739009A5C3C /* KeychainAccess */ = {
 			isa = PBXGroup;
 			children = (
@@ -333,9 +452,19 @@
 			children = (
 				F246C13F199785E600271001 /* Jupp.entitlements */,
 				F2E0ECD61995EC4100854B6D /* AppDelegate.swift */,
-				F2E0ECD81995EC4100854B6D /* ViewController.swift */,
+				F2E0ECD81995EC4100854B6D /* PostViewController.swift */,
 				F29F8222199FAE82009A5C3C /* LoginViewController.swift */,
-				F2E0ECDA1995EC4100854B6D /* Main.storyboard */,
+				F28EF0E119C5B75E0096CA48 /* ClientData.swift */,
+				F292785D19BB29FC00515086 /* SettingsTableViewController.swift */,
+				F269BE7919B9A0C0009CEF03 /* Cells */,
+				F269BE7B19B9A0C0009CEF03 /* DataFetch */,
+				F269BE7F19B9A0C0009CEF03 /* Model */,
+				F269BE8819B9A0C0009CEF03 /* Protocols */,
+				F269BE8A19B9A0C0009CEF03 /* TimeLine */,
+				F292789919BE1F4D00515086 /* HelperClasses */,
+				F2E0ECDA1995EC4100854B6D /* Post.storyboard */,
+				F2F6911C19BA4BCE008BABB6 /* TimeLine.storyboard */,
+				F28EF0DF19C565FA0096CA48 /* LaunchScreen.storyboard */,
 				F2E0ECDD1995EC4100854B6D /* Images.xcassets */,
 				F2E0ECD41995EC4100854B6D /* Supporting Files */,
 			);
@@ -353,7 +482,7 @@
 		F2E0ECE61995EC4100854B6D /* JuppTests */ = {
 			isa = PBXGroup;
 			children = (
-				F2E0ECE91995EC4100854B6D /* JuppTests.swift */,
+				F292789C19BE1FBB00515086 /* LinkExtractorTests.swift */,
 				F2E0ECE71995EC4100854B6D /* Supporting Files */,
 			);
 			path = JuppTests;
@@ -635,7 +764,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F2E0ECDC1995EC4100854B6D /* Main.storyboard in Resources */,
+				F2F6911D19BA4BCE008BABB6 /* TimeLine.storyboard in Resources */,
+				F28EF0E019C565FA0096CA48 /* LaunchScreen.storyboard in Resources */,
+				F2E0ECDC1995EC4100854B6D /* Post.storyboard in Resources */,
 				F2E0ECDE1995EC4100854B6D /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -694,9 +825,32 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F269BE8E19B9A0C0009CEF03 /* ADNRequestFactory.swift in Sources */,
 				F29F8223199FAE82009A5C3C /* LoginViewController.swift in Sources */,
-				F2E0ECD91995EC4100854B6D /* ViewController.swift in Sources */,
+				F28EF0E219C5B75E0096CA48 /* ClientData.swift in Sources */,
+				F269BE9219B9A0C0009CEF03 /* MentionBuilder.swift in Sources */,
+				F269BE9619B9A0C0009CEF03 /* PostBuilder.swift in Sources */,
+				F292786219BB2D1D00515086 /* StringDrawingOptions.m in Sources */,
+				F292786619BC24CA00515086 /* LinkBuilder.swift in Sources */,
+				F269BE9519B9A0C0009CEF03 /* Post.swift in Sources */,
+				F269BE9419B9A0C0009CEF03 /* MetaBuilder.swift in Sources */,
+				F269BE9A19B9A0C0009CEF03 /* TimeLineDataSource.swift in Sources */,
+				F269BE9719B9A0C0009CEF03 /* User.swift in Sources */,
+				F269BE9919B9A0C0009CEF03 /* TableViewProtocol.swift in Sources */,
+				F269BE9119B9A0C0009CEF03 /* Mention.swift in Sources */,
+				F292789819BC3FAD00515086 /* NSAttributedString+HeightCalculation.m in Sources */,
+				F2E0ECD91995EC4100854B6D /* PostViewController.swift in Sources */,
+				F292789519BC349400515086 /* HeightCalculator.swift in Sources */,
+				F269BE9019B9A0C0009CEF03 /* PostsParser.swift in Sources */,
+				F269BE8F19B9A0C0009CEF03 /* APICommunicator.swift in Sources */,
 				F2E0ECD71995EC4100854B6D /* AppDelegate.swift in Sources */,
+				F292786419BC234F00515086 /* Link.swift in Sources */,
+				F269BE9319B9A0C0009CEF03 /* Meta.swift in Sources */,
+				F269BE8D19B9A0C0009CEF03 /* PostCell.swift in Sources */,
+				F292785E19BB29FC00515086 /* SettingsTableViewController.swift in Sources */,
+				F269BE9819B9A0C0009CEF03 /* UserBuilder.swift in Sources */,
+				F269BE9B19B9A0C0009CEF03 /* TimeLineViewController.swift in Sources */,
+				F292789B19BE1F4D00515086 /* LinkExtractor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -704,7 +858,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F2E0ECEA1995EC4100854B6D /* JuppTests.swift in Sources */,
+				F292789D19BE1FBB00515086 /* LinkExtractorTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -759,12 +913,12 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		F2E0ECDA1995EC4100854B6D /* Main.storyboard */ = {
+		F2E0ECDA1995EC4100854B6D /* Post.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				F2E0ECDB1995EC4100854B6D /* Base */,
 			);
-			name = Main.storyboard;
+			name = Post.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -773,6 +927,7 @@
 		F2049CE81995F64300047E23 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -798,6 +953,7 @@
 		F2049CE91995F64300047E23 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -1042,13 +1198,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Jupp/Jupp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Jupp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Jupp;
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Jupp/TimeLine/Jupp-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -1057,13 +1216,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Jupp/Jupp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Jupp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Jupp;
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Jupp/TimeLine/Jupp-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -1138,6 +1299,7 @@
 				F29F820F199FA739009A5C3C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F29F8213199FA739009A5C3C /* Build configuration list for PBXNativeTarget "KeychainAccessTests" */ = {
 			isa = XCConfigurationList;
@@ -1146,6 +1308,7 @@
 				F29F8211199FA739009A5C3C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F2E0ECCC1995EC4100854B6D /* Build configuration list for PBXProject "Jupp" */ = {
 			isa = XCConfigurationList;

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--Post-->
+        <scene sceneID="hSf-lN-7Mf">
+            <objects>
+                <viewController title="Post" id="k7U-6N-zJE" customClass="PostViewController" customModule="Jupp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="CIY-kf-Npd"/>
+                        <viewControllerLayoutGuide type="bottom" id="gcw-Kj-pK3"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="F0q-yQ-yro">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wcf-Ch-gWR">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="331"/>
+                                <gestureRecognizers/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <connections>
+                                    <outlet property="delegate" destination="k7U-6N-zJE" id="JVh-Qv-38Z"/>
+                                    <outletCollection property="gestureRecognizers" destination="fMb-oY-AyV" appends="YES" id="orn-KU-WCH"/>
+                                    <outletCollection property="gestureRecognizers" destination="iFF-uh-zYU" appends="YES" id="V2t-6E-NC9"/>
+                                </connections>
+                            </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="256" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MyS-JF-MC4">
+                                <rect key="frame" x="561" y="300" width="29" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Fcf-WO-cMZ">
+                                <rect key="frame" x="282" y="147" width="37" height="37"/>
+                                <color key="color" cocoaTouchSystemColor="darkTextColor"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Wcf-Ch-gWR" firstAttribute="top" secondItem="F0q-yQ-yro" secondAttribute="topMargin" id="0Cp-6d-pij"/>
+                            <constraint firstItem="MyS-JF-MC4" firstAttribute="trailing" secondItem="Wcf-Ch-gWR" secondAttribute="trailing" constant="-10" id="1pA-Nt-5Fz"/>
+                            <constraint firstItem="Wcf-Ch-gWR" firstAttribute="centerY" secondItem="Fcf-WO-cMZ" secondAttribute="centerY" constant="0.5" id="9GU-Rw-Y2G"/>
+                            <constraint firstItem="gcw-Kj-pK3" firstAttribute="top" secondItem="Wcf-Ch-gWR" secondAttribute="bottom" constant="205" id="BCL-j0-z8v"/>
+                            <constraint firstItem="Wcf-Ch-gWR" firstAttribute="centerX" secondItem="Fcf-WO-cMZ" secondAttribute="centerX" constant="-0.5" id="dCZ-58-UrY"/>
+                            <constraint firstItem="Wcf-Ch-gWR" firstAttribute="leading" secondItem="F0q-yQ-yro" secondAttribute="leadingMargin" constant="-16" id="f6N-Zc-9DV"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Wcf-Ch-gWR" secondAttribute="trailing" constant="-16" id="ou2-gT-vAf"/>
+                            <constraint firstItem="MyS-JF-MC4" firstAttribute="bottom" secondItem="Wcf-Ch-gWR" secondAttribute="bottom" constant="-10" id="yWE-RR-XKV"/>
+                        </constraints>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <navigationItem key="navigationItem" title="Post" id="2hF-kQ-Kms">
+                        <barButtonItem key="leftBarButtonItem" title="Settings" id="DUa-3r-1So"/>
+                        <barButtonItem key="rightBarButtonItem" title="Send" id="tzC-Ay-i96">
+                            <connections>
+                                <action selector="post:" destination="k7U-6N-zJE" id="MVY-OQ-9rz"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="characterCountLabel" destination="MyS-JF-MC4" id="sWG-J6-VS9"/>
+                        <outlet property="postTextView" destination="Wcf-Ch-gWR" id="OTZ-qF-bdd"/>
+                        <outlet property="sendActivityIndicator" destination="Fcf-WO-cMZ" id="10w-Ah-RmC"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VrR-sj-Xez" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="down" id="fMb-oY-AyV">
+                    <connections>
+                        <action selector="dismissKeyboard:" destination="k7U-6N-zJE" id="owA-eC-3vA"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <swipeGestureRecognizer direction="up" id="iFF-uh-zYU">
+                    <connections>
+                        <action selector="post:" destination="k7U-6N-zJE" id="L15-0Q-sX2"/>
+                    </connections>
+                </swipeGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="3192" y="102"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="881-aQ-6SS">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="E4E-yh-T7U" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="gaH-pJ-Oc9">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="k7U-6N-zJE" kind="relationship" relationship="rootViewController" id="l6b-V3-9sv"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="up2-3A-plf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2380" y="102"/>
+        </scene>
+    </scenes>
+</document>

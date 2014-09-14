@@ -1,14 +1,57 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6205" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Lxk-pZ-dVB">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Lxk-pZ-dVB">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6198"/>
-        <capability name="Constraints with attributes relative to the layout margin" minToolsVersion="6.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Twitter Accounts-->
+        <scene sceneID="G7c-1M-b3Q">
+            <objects>
+                <tableViewController id="84g-kn-Csw" customClass="SettingsTableViewController" customModule="Jupp" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="IBo-Cj-gTC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="twitterAccountCell" textLabel="RI5-hI-6dK" style="IBUITableViewCellStyleDefault" id="xAs-Vr-QAp">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xAs-Vr-QAp" id="llK-7n-El3">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="RI5-hI-6dK">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <sections/>
+                        <connections>
+                            <outlet property="dataSource" destination="84g-kn-Csw" id="Q4e-3x-U6H"/>
+                            <outlet property="delegate" destination="84g-kn-Csw" id="vBc-wk-Pc2"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Twitter Accounts" id="kvf-XE-BRX">
+                        <barButtonItem key="rightBarButtonItem" title="Done" id="4ZI-OY-Xlt">
+                            <connections>
+                                <action selector="done:" destination="84g-kn-Csw" id="sv1-0h-ywX"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Fbq-Tz-M2T" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3921" y="-615"/>
+        </scene>
+        <!--Post-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController id="vXZ-lx-hvc" customClass="ViewController" customModule="Jupp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Post" id="vXZ-lx-hvc" customClass="PostViewController" customModule="Jupp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
@@ -18,55 +61,72 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OBe-d4-59V">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="282"/>
-                                <color key="backgroundColor" red="0.90453845262527466" green="0.93818491697311401" blue="0.96146959066390991" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="331"/>
+                                <gestureRecognizers/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 <connections>
                                     <outlet property="delegate" destination="vXZ-lx-hvc" id="L6z-Xh-Jiy"/>
+                                    <outletCollection property="gestureRecognizers" destination="5xM-h2-SKE" appends="YES" id="wwB-6E-CRH"/>
+                                    <outletCollection property="gestureRecognizers" destination="zXW-v8-o9K" appends="YES" id="I6u-l6-4an"/>
                                 </connections>
                             </textView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tyO-1X-dJL">
-                                <rect key="frame" x="548" y="251" width="42" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="256" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tyO-1X-dJL">
+                                <rect key="frame" x="561" y="300" width="29" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="qyJ-MF-Fbm">
+                                <rect key="frame" x="282" y="147" width="37" height="37"/>
+                                <color key="color" cocoaTouchSystemColor="darkTextColor"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="OBe-d4-59V" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="-16" id="7Ts-CG-lon"/>
+                            <constraint firstItem="OBe-d4-59V" firstAttribute="centerY" secondItem="qyJ-MF-Fbm" secondAttribute="centerY" constant="0.5" id="BCf-3i-QTb"/>
                             <constraint firstAttribute="trailingMargin" secondItem="OBe-d4-59V" secondAttribute="trailing" constant="-16" id="CGo-1o-uTn"/>
-                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="OBe-d4-59V" secondAttribute="bottom" constant="254" id="E16-d0-Yb5"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="OBe-d4-59V" secondAttribute="bottom" constant="205" id="E16-d0-Yb5"/>
+                            <constraint firstItem="OBe-d4-59V" firstAttribute="centerX" secondItem="qyJ-MF-Fbm" secondAttribute="centerX" constant="-0.5" id="R8q-nS-6PG"/>
                             <constraint firstItem="tyO-1X-dJL" firstAttribute="bottom" secondItem="OBe-d4-59V" secondAttribute="bottom" constant="-10" id="cuU-Ge-5k9"/>
                             <constraint firstItem="OBe-d4-59V" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="topMargin" id="i3b-yS-e1Z"/>
                             <constraint firstItem="tyO-1X-dJL" firstAttribute="trailing" secondItem="OBe-d4-59V" secondAttribute="trailing" constant="-10" id="rCs-ts-HvY"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
-                    <navigationItem key="navigationItem" id="yNS-Y4-9wi">
-                        <barButtonItem key="leftBarButtonItem" title="Delete" id="ZRC-3B-HRk">
+                    <navigationItem key="navigationItem" title="Post" id="yNS-Y4-9wi">
+                        <barButtonItem key="leftBarButtonItem" title="Settings" id="4ki-ZM-ghU">
                             <connections>
-                                <action selector="deleteText:" destination="vXZ-lx-hvc" id="QYB-vX-91O"/>
+                                <segue destination="DPd-aH-KxA" kind="popoverPresentation" popoverAnchorBarButtonItem="4ki-ZM-ghU" id="cqO-e6-xMx">
+                                    <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                </segue>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Send" id="fRg-sP-8ha">
-                            <connections>
-                                <action selector="post:" destination="vXZ-lx-hvc" id="6AV-0q-WL6"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Send" id="fRg-sP-8ha"/>
                     </navigationItem>
                     <connections>
                         <outlet property="characterCountLabel" destination="tyO-1X-dJL" id="2ad-CN-q1b"/>
                         <outlet property="postTextView" destination="OBe-d4-59V" id="2XH-zf-XTP"/>
-                        <segue destination="CsH-xH-cuX" kind="popoverPresentation" identifier="ShowLoginViewController" popoverAnchorView="OBe-d4-59V" id="tkW-lj-KgW">
+                        <outlet property="sendActivityIndicator" destination="qyJ-MF-Fbm" id="Keo-od-ZKY"/>
+                        <segue destination="CsH-xH-cuX" kind="popoverPresentation" identifier="ShowLoginViewController" popoverAnchorBarButtonItem="4ki-ZM-ghU" id="tkW-lj-KgW">
                             <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                         </segue>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="down" id="5xM-h2-SKE">
+                    <connections>
+                        <action selector="dismissKeyboard:" destination="vXZ-lx-hvc" id="gNK-9w-FH8"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <swipeGestureRecognizer direction="up" id="zXW-v8-o9K">
+                    <connections>
+                        <action selector="post:" destination="vXZ-lx-hvc" id="qtr-eu-oQd"/>
+                    </connections>
+                </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1568" y="102"/>
+            <point key="canvasLocation" x="2380" y="102"/>
         </scene>
         <!--Log In-->
         <scene sceneID="iU1-YS-nSc">
@@ -88,7 +148,7 @@
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vUx-fT-PXV">
                                 <rect key="frame" x="16" y="110" width="568" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uwy-aO-aBW">
                                 <rect key="frame" x="16" y="148" width="568" height="30"/>
@@ -122,12 +182,13 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NLJ-SN-F2F" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3109" y="102"/>
+            <point key="canvasLocation" x="3921" y="102"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Post-->
         <scene sceneID="qzc-fJ-nws">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Lxk-pZ-dVB" sceneMemberID="viewController">
+                <navigationController title="Post" automaticallyAdjustsScrollViewInsets="NO" id="Lxk-pZ-dVB" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Post" id="DDg-GM-xr1"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="b8b-ma-aHX">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -135,12 +196,12 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="vXZ-lx-hvc" kind="relationship" relationship="rootViewController" id="qmL-wc-MF1"/>
+                        <segue destination="vXZ-lx-hvc" kind="relationship" relationship="rootViewController" id="dxd-ot-iuO"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iHT-nc-vgZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="785" y="102"/>
+            <point key="canvasLocation" x="1597" y="102"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="jge-pB-H27">
@@ -158,7 +219,25 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sLt-gu-WsR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2297" y="102"/>
+            <point key="canvasLocation" x="3109" y="102"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="5AL-nt-J0S">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="DPd-aH-KxA" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="0sY-zg-kIn">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="84g-kn-Csw" kind="relationship" relationship="rootViewController" id="JNq-KF-lOW"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Eom-rN-ROl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3109" y="-615"/>
         </scene>
     </scenes>
 </document>

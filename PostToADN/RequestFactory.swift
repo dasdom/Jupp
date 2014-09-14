@@ -14,7 +14,7 @@ public class RequestFactory {
         
     }
     
-    public class func postRequestFromPostText(postText: String, linksArray: [[String:String]], accessToken:String) -> NSURLRequest {
+    public class func postRequestFromPostText(postText: String, linksArray: [[String:String]], accessToken:String, replyTo: Int? = nil) -> NSURLRequest {
         var urlString = "https://api.app.net/posts?include_post_annotations=1"
         var url = NSURL(string: urlString)
         var postRequest = NSMutableURLRequest(URL: url)
@@ -27,6 +27,10 @@ public class RequestFactory {
         
         var postDictionary = Dictionary<String, AnyObject>()
         postDictionary["text"] = postText
+        
+        if replyTo != nil {
+            postDictionary["reply_to"] = replyTo
+        }
         
         postDictionary["entities"] = ["links": linksArray, "parse_links": true]
         

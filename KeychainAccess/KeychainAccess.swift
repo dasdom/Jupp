@@ -11,27 +11,33 @@ import Foundation
 public class KeychainAccess {
     
     private class func secClassGenericPassword() -> String {
-        return kSecClassGenericPassword.takeRetainedValue() as String
+//        return kSecClassGenericPassword.takeRetainedValue() as String
+        return NSString(format: kSecClassGenericPassword)
     }
     
     private class func secClass() -> String {
-        return kSecClass.takeRetainedValue() as String
+//        return kSecClass.takeRetainedValue() as String
+        return NSString(format: kSecClass)
     }
     
     private class func secAttrService() -> String {
-        return kSecAttrService.takeRetainedValue() as String
+//        return kSecAttrService.takeRetainedValue() as String
+        return NSString(format: kSecAttrService)
     }
     
     private class func secAttrAccount() -> String {
-        return kSecAttrAccount.takeRetainedValue() as String
+//        return kSecAttrAccount.takeRetainedValue() as String
+        return NSString(format: kSecAttrAccount)
     }
     
     private class func secValueData() -> String {
-        return kSecValueData.takeRetainedValue() as String
+//        return kSecValueData.takeRetainedValue() as String
+        return NSString(format: kSecValueData)
     }
     
     private class func secReturnData() -> String {
-        return kSecReturnData.takeRetainedValue() as String
+//        return kSecReturnData.takeRetainedValue() as String
+        return NSString(format: kSecReturnData)
     }
     
     public class func setPassword(password: String, account: String, service: String = "kDDHDefaultService") {

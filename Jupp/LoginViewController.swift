@@ -39,8 +39,8 @@ class LoginViewController: UIViewController {
         
         let urlString = "https://account.app.net/oauth/access_token"
         
-        let clientId = "34BV8WxePcAnaYaXASxFfZJYgSvVzMEG"
-        let passwordGrantSecret = "x82YRs27GLPvBaEZQwrepRYSzKDp4TW9"
+        let clientId = ClientData.clientId
+        let passwordGrantSecret = ClientData.passwordGrantSecret
         
         var postString = "client_id=\(clientId)&password_grant_secret=\(passwordGrantSecret)&grant_type=password&username=\(usernameTextField.text)&password=\(passwordTextField.text)&scope=write_post"
         
