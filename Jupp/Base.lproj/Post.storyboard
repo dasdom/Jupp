@@ -109,9 +109,7 @@
                         <outlet property="characterCountLabel" destination="tyO-1X-dJL" id="2ad-CN-q1b"/>
                         <outlet property="postTextView" destination="OBe-d4-59V" id="2XH-zf-XTP"/>
                         <outlet property="sendActivityIndicator" destination="qyJ-MF-Fbm" id="Keo-od-ZKY"/>
-                        <segue destination="CsH-xH-cuX" kind="popoverPresentation" identifier="ShowLoginViewController" popoverAnchorBarButtonItem="4ki-ZM-ghU" id="tkW-lj-KgW">
-                            <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                        </segue>
+                        <segue destination="CsH-xH-cuX" kind="presentation" identifier="ShowLoginViewController" modalPresentationStyle="formSheet" id="tkW-lj-KgW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>

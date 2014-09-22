@@ -55,6 +55,21 @@ class LoginViewController: UIViewController {
             let responseDict  = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as [String:AnyObject]
             println("responseDict: \(responseDict)")
             
+            if let error = responseDict["error"] as? NSString {
+                let errorText = responseDict["error_text"] as? NSString
+                let alertController = UIAlertController(title: "Error", message: errorText, preferredStyle: .Alert)
+                let okAction = UIAlertAction(title: "OK", style: .Default, handler: { (action) in
+                    self.usernameTextField.text = ""
+                    self.passwordTextField.text = ""
+                })
+                alertController.addAction(okAction)
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    self.presentViewController(alertController, animated: true, completion: { () -> Void in
+                    })
+                })
+                return
+            }
+            
             if let accessToken = responseDict["access_token"]! as AnyObject as? String {
                 println("accessToken \(accessToken)")
                 

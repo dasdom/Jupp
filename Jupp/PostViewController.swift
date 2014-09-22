@@ -91,6 +91,10 @@ class PostViewController: UIViewController, UITextViewDelegate {
             return
         }
         
+        if accessToken == nil {
+            accessToken = KeychainAccess.passwordForAccount("AccessToken")
+        }
+        
         let linkExtractor = LinkExtractor()
         let (postText, linksArray) = linkExtractor.extractLinks(postTextView.text)
         let request = RequestFactory.postRequestFromPostText(postText, linksArray: linksArray, accessToken: accessToken!, replyTo: replyToPost?.id)
