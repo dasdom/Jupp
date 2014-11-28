@@ -26,7 +26,7 @@ class UserBuilder : CanBuildUser {
         
 //        println("\(avatarURLString) && \(id) && \(name) && \(username)")
         if avatarURLString != nil && id != nil && username != nil {
-            user.avatarURL = NSURL(string: avatarURLString!)
+            user.avatarURL = NSURL(string: avatarURLString!)!
             user.id = id!.toInt()!
             user.username = username!
             if name != nil {

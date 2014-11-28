@@ -38,7 +38,7 @@ class PostsParser {
         let meta = MetaBuilder().metaFromDictionary(metaDict)
         if let errorMessage = metaDict["error_message"] as? NSString {
             var code = metaDict["code"] as NSNumber
-            var error = NSError.errorWithDomain(ADNFetchError, code: code.integerValue, userInfo: [NSLocalizedDescriptionKey : errorMessage])
+            var error = NSError(domain: ADNFetchError, code: code.integerValue, userInfo: [NSLocalizedDescriptionKey : errorMessage])
             return (nil, nil, error)
         }
 

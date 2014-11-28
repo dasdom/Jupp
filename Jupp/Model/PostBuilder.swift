@@ -46,7 +46,7 @@ class PostBuilder : CanBuildPost {
         
 //        println("\(canonicalURLString) && \(id) && \(text) && \(threadId)")
         if canonicalURLString != nil && id != nil && text != nil && threadId != nil && user != nil {
-            post.canonicalURL   = NSURL(string: canonicalURLString!)
+            post.canonicalURL   = NSURL(string: canonicalURLString!)!
             post.id             = id!.toInt()!
             post.text           = text!
             post.threadId       = threadId!.toInt()!

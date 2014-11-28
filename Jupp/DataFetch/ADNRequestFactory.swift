@@ -56,7 +56,7 @@ class ADNRequestFactory {
     }
     
     class func GETRequestWithSubstring(substring: String, parameters theParameters: Dictionary<String,Int>?, authorization: Bool) -> NSURLRequest {
-        let urlRequest = NSMutableURLRequest(URL: NSURL(string: urlFromSubstring(substring, parameters: theParameters)))
+        let urlRequest = NSMutableURLRequest(URL: NSURL(string: urlFromSubstring(substring, parameters: theParameters))!)
         urlRequest.HTTPMethod = "GET"
         urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
         urlRequest.addValue("gzip", forHTTPHeaderField: "Accept-Encoding")
@@ -70,7 +70,7 @@ class ADNRequestFactory {
     }
     
     class func POSTRequestWithSubstring(substring: String, parameters theParameters: Dictionary<String,Int>?) -> NSURLRequest {
-        let urlRequest = NSMutableURLRequest(URL: NSURL(string: urlFromSubstring(substring, parameters: theParameters)))
+        let urlRequest = NSMutableURLRequest(URL: NSURL(string: urlFromSubstring(substring, parameters: theParameters))!)
         urlRequest.HTTPMethod = "POST"
         urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
         let accessToken = KeychainAccess.passwordForAccount("AccessToken")

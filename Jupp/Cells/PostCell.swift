@@ -30,7 +30,7 @@ class PostCell: UITableViewCell {
             var imageLoadinOperation = NSBlockOperation(block: {
                 var strongSelf = weakSelf
                 let imageData = NSData(contentsOfURL: strongSelf!.avatarURL!)
-                let image = UIImage(data: imageData)
+                let image = UIImage(data: imageData!)
                 dispatch_async(dispatch_get_main_queue(), {
                     strongSelf!.avatarImageView.image = image
                     })

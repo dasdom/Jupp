@@ -17,7 +17,7 @@ public class RequestFactory {
     public class func postRequestFromPostText(postText: String, linksArray: [[String:String]], accessToken:String, replyTo: Int? = nil) -> NSURLRequest {
         var urlString = "https://api.app.net/posts?include_post_annotations=1"
         var url = NSURL(string: urlString)
-        var postRequest = NSMutableURLRequest(URL: url)
+        var postRequest = NSMutableURLRequest(URL: url!)
         
         let authorizationString = "Bearer " + accessToken;
         postRequest.addValue(authorizationString, forHTTPHeaderField: "Authorization")

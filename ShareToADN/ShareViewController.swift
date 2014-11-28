@@ -20,7 +20,7 @@ class ShareViewController: SLComposeServiceViewController, NSURLSessionDelegate 
         super.viewDidAppear(animated)
         
         let inputItem = self.extensionContext!.inputItems.first as NSExtensionItem
-        println("\(self.extensionContext!.inputItems)")
+        println("inputItems: \(self.extensionContext!.inputItems)")
         
         if let urlProvider = inputItem.attachments!.first as? NSItemProvider {
             urlProvider.loadItemForTypeIdentifier("public.url", options: nil) {

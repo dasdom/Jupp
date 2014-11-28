@@ -53,21 +53,38 @@ public class KeychainAccess {
         let status = SecItemAdd(query as CFDictionaryRef, nil)
     }
     
+    public class func deletePasswortForAccount(account: String, service: String = "kDDHDefaultService") {
+        let objects: Array = [secClassGenericPassword(), service, account]
+        
+        let keys: Array = [secClass(), secAttrService(), secAttrAccount()]
+        
+        let query = NSDictionary(objects: objects, forKeys: keys)
+        
+        SecItemDelete(query as CFDictionaryRef)
+        
+        let status = SecItemDelete(query as CFDictionaryRef)
+
+    }
+    
     public class func passwordForAccount(account: String, service: String = "kDDHDefaultService") -> String? {
         
         let queryAttributes = NSDictionary(objects: [secClassGenericPassword(), service, account, true], forKeys: [secClass(), secAttrService(), secAttrAccount(), secReturnData()])
         
         var dataTypeRef : Unmanaged<AnyObject>?
         let status = SecItemCopyMatching(queryAttributes, &dataTypeRef);
-        if dataTypeRef == nil {
+        if status == errSecItemNotFound {
             return nil
         }
+//        if let dataTypeRef = dataTypeRef {
+            let retrievedData : NSData = dataTypeRef!.takeRetainedValue() as CFDataRef as NSData
         
-        let retrievedData : NSData = dataTypeRef!.takeRetainedValue() as NSData
-        
-        let password = NSString(data: retrievedData, encoding: NSUTF8StringEncoding)
-        
-        return password as String
+//        if let retrievedData = retrievedData {
+            let password = NSString(data: retrievedData, encoding: NSUTF8StringEncoding)
+            
+            return password as? String
+
+//        }
+//        return nil
     }
     
 }

@@ -65,7 +65,7 @@ class PostViewController: UIViewController, UITextViewDelegate {
             return
         }
         
-        postTextView.becomeFirstResponder()
+        postTextView?.becomeFirstResponder()
         updateCharacterCount()
         
         accountStore = ACAccountStore()
@@ -77,9 +77,9 @@ class PostViewController: UIViewController, UITextViewDelegate {
 //        var button = UIButton()
 //        button.setTitle("title", forState: .Normal)
         var errorMessage: String?
-        if postTextView.text.utf16Count < 1 {
+        if  postTextView.text?.utf16Count < 1 {
             errorMessage = NSLocalizedString("A post should have at least one character.", comment: "Empty post alert message")
-        } else if postTextView.text.utf16Count > 256 {
+        } else if postTextView.text?.utf16Count > 256 {
             errorMessage = NSLocalizedString("A post cannot have more than 256 characters.", comment: "To many characters alert message")
         }
         
@@ -93,6 +93,10 @@ class PostViewController: UIViewController, UITextViewDelegate {
         
         if accessToken == nil {
             accessToken = KeychainAccess.passwordForAccount("AccessToken")
+        }
+        if accessToken == nil {
+            performSegueWithIdentifier("ShowLoginViewController", sender: self)
+            return
         }
         
         let linkExtractor = LinkExtractor()
@@ -126,13 +130,14 @@ class PostViewController: UIViewController, UITextViewDelegate {
             
             dispatch_async(dispatch_get_main_queue(), {
                 self.sendActivityIndicator.stopAnimating()
-                })
-            
-            if self.replyToPost != nil {
-                self.dismissViewControllerAnimated(true, completion: nil)
-                self.isPosting = false
-                return
-            }
+                
+                
+                if self.replyToPost != nil {
+                    self.dismissViewControllerAnimated(true, completion: nil)
+                    self.isPosting = false
+                    return
+                }
+            })
             if linksArray.count > 0 {
                 dispatch_async(dispatch_get_main_queue(), {
                     self.resetTextView()
@@ -184,7 +189,7 @@ class PostViewController: UIViewController, UITextViewDelegate {
     
     //MARK: Twitter
     func tweetText(text: String, linksArray: [[String:String]], accountIdentifier: String, completion: () -> ()) {
-        var postTextPartOne = ""
+        var postTextPartOne = text
         var postTextPartTwo = ""
         if text.utf16Count > 140 {
 //            let index = advance(postTextPartOne.startIndex, 130)
@@ -192,6 +197,8 @@ class PostViewController: UIViewController, UITextViewDelegate {
 //            postTextPartOne = postTextPartOne.substringToIndex(index) + "...\n1/2"
             let components = text.componentsSeparatedByString(" ")
             var addToFirstPart = true
+            
+            postTextPartOne = ""
             for word in components {
                 if postTextPartOne.utf16Count + word.utf16Count > 130 {
                     addToFirstPart = false
