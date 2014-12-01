@@ -20,6 +20,7 @@ class PostViewController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var postTextView: UITextView!
     @IBOutlet weak var characterCountLabel: UILabel!
     @IBOutlet weak var sendActivityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var textViewBottomConstraint: NSLayoutConstraint!
     
     var isPosting = false
     
@@ -27,7 +28,9 @@ class PostViewController: UIViewController, UITextViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -223,7 +226,7 @@ class PostViewController: UIViewController, UITextViewDelegate {
         let parameters = ["status" : postTextPartOne]
         let tweetRequest = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: .POST, URL: NSURL(string: "https://api.twitter.com/1.1/statuses/update.json"), parameters: parameters)
         
-        let account = self.accountStore?.accountWithIdentifier(accountIdentifier)
+        let account = accountStore?.accountWithIdentifier(accountIdentifier)
         tweetRequest.account = account
         tweetRequest.performRequestWithHandler { (tweetData, tweetResponse, tweetError) in
             println("error: \(tweetError)")
@@ -238,6 +241,16 @@ class PostViewController: UIViewController, UITextViewDelegate {
                     println("tweetResponse: \(tweetResponse)")
                     
                     dispatch_async(dispatch_get_main_queue(), {
+                        
+                        let alertMessage = "Tweet 1: \(postTextPartOne)" + "\n\n" + "Tweet 2: \(postTextPartTwo)"
+                        let alert = UIAlertController(title: "You tweeted two tweets:", message: alertMessage, preferredStyle: .Alert)
+                        let okAction = UIAlertAction(title: "OK", style: .Default, handler: { (action) -> Void in
+                            println("OK")
+                        })
+                        alert.addAction(okAction)
+                        
+                        self.presentViewController(alert, animated: true, completion: nil)
+                        
                         completion()
                     })
                 }
@@ -257,5 +270,17 @@ class PostViewController: UIViewController, UITextViewDelegate {
     
     func cancel(sender: UIBarButtonItem) {
         self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func keyboardWillShow(sender: NSNotification) {
+        if let userInfo = sender.userInfo {
+            if let keyboardHeight = userInfo[UIKeyboardFrameEndUserInfoKey]?.CGRectValue().size.height {
+                textViewBottomConstraint.constant = keyboardHeight
+                UIView.animateWithDuration(0.25, animations: { () -> Void in
+                    self.view.layoutIfNeeded()
+                })
+            }
+        }
+        
     }
 }

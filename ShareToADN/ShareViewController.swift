@@ -16,22 +16,63 @@ class ShareViewController: SLComposeServiceViewController, NSURLSessionDelegate 
 
     var urlSession: NSURLSession?
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
+    var imageToShare: UIImage?
+    var urlToShare: NSURL?
+    
+    override func viewDidLoad() { // 1
+        let items = extensionContext?.inputItems
+        var itemProvider: NSItemProvider?
         
-        let inputItem = self.extensionContext!.inputItems.first as NSExtensionItem
-        println("inputItems: \(self.extensionContext!.inputItems)")
-        
-        if let urlProvider = inputItem.attachments!.first as? NSItemProvider {
-            urlProvider.loadItemForTypeIdentifier("public.url", options: nil) {
-                (decoder: NSSecureCoding!, error: NSError!) -> Void in
-                if let url = decoder as? NSURL {
-                    println("\(url.absoluteString)")
+        if items != nil && items!.isEmpty == false {
+            let item = items![0] as NSExtensionItem
+            if let attachments = item.attachments {
+                if !attachments.isEmpty {
+                    itemProvider = attachments[0] as? NSItemProvider
                 }
             }
         }
         
+        let imageType = kUTTypeImage as NSString as String
+        let urlType = kUTTypeURL as NSString  as String
+        
+        if itemProvider?.hasItemConformingToTypeIdentifier(imageType) == true {
+            itemProvider?.loadItemForTypeIdentifier(imageType, options: nil) { (item, error) -> Void in
+                if error == nil {
+                    let url = item as NSURL
+                    if let imageData = NSData(contentsOfURL: url) {
+                        self.imageToShare = UIImage(data: imageData)
+                    }
+                }
+            }
+        } else if itemProvider?.hasItemConformingToTypeIdentifier(urlType) == true {
+            itemProvider?.loadItemForTypeIdentifier(urlType, options: nil) { (item, error) -> Void in
+                if error == nil {
+                    if let url = item as? NSURL {
+                        self.urlToShare = url
+                    }
+                }
+            }
+        }
     }
+    
+    
+    
+//    override func viewDidAppear(animated: Bool) {
+//        super.viewDidAppear(animated)
+//        
+//        let inputItem = self.extensionContext!.inputItems.first as NSExtensionItem
+//        println("inputItems: \(self.extensionContext!.inputItems)")
+//        
+//        if let urlProvider = inputItem.attachments!.first as? NSItemProvider {
+//            urlProvider.loadItemForTypeIdentifier("public.url", options: nil) {
+//                (decoder: NSSecureCoding!, error: NSError!) -> Void in
+//                if let url = decoder as? NSURL {
+//                    println("\(url.absoluteString)")
+//                }
+//            }
+//        }
+//        
+//    }
     
     override func isContentValid() -> Bool {
         charactersRemaining = 256 - contentText.utf16Count
@@ -49,30 +90,25 @@ class ShareViewController: SLComposeServiceViewController, NSURLSessionDelegate 
         let inputItem = self.extensionContext!.inputItems.first as NSExtensionItem
         println("\(self.extensionContext!.inputItems)")
         
-        if let urlProvider = inputItem.attachments!.first as? NSItemProvider {
-            urlProvider.loadItemForTypeIdentifier(kUTTypeURL as NSString, options: nil) {
-                (decoder: NSSecureCoding!, error: NSError!) -> Void in
-                if let url = decoder as? NSURL {
-                    println("\(url.absoluteString)")
+        if let urlToShare = urlToShare {
+            println("\(urlToShare.absoluteString)")
+            
+            let length = self.contentText.utf16Count
+            let linkDict = ["url" : urlToShare.absoluteString!, "pos": "0", "len": "\(length)"]
+            let linksArray: [[String:String]] = [linkDict]
+            
+            let urlSessionConfiguration = NSURLSessionConfiguration.defaultSessionConfiguration()
+            self.urlSession = NSURLSession(configuration: urlSessionConfiguration, delegate: self, delegateQueue: nil)
 
-                    let length = self.contentText.utf16Count
-                    let linkDict = ["url" : url.absoluteString!, "pos": "0", "len": "\(length)"]
-                    let linksArray: [[String:String]] = [linkDict]
-                    
-                    let urlSessionConfiguration = NSURLSessionConfiguration.defaultSessionConfiguration()
-                    self.urlSession = NSURLSession(configuration: urlSessionConfiguration, delegate: self, delegateQueue: nil)
-//                    let urlSessionTask = self.urlSession!.dataTaskWithRequest(self.postRequestFromPostText(self.contentText, linksArray: linksArray,  accessToken: accessToken))
-                    let request = RequestFactory()
-                    let urlSessionTask = self.urlSession!.dataTaskWithRequest(RequestFactory.postRequestFromPostText(self.contentText, linksArray: linksArray, accessToken: accessToken!), completionHandler: { (data, response, error) -> Void in
-                        println("response: \(response)")
-                        let responseString = NSString(data: data, encoding: NSUTF8StringEncoding)
-                        println("responseString: \(responseString)")
-                        self.extensionContext!.completeRequestReturningItems(nil, completionHandler: nil)
-                    })
-                    
-                    urlSessionTask.resume()
-                }
-            }
+            let request = RequestFactory()
+            let urlSessionTask = self.urlSession!.dataTaskWithRequest(RequestFactory.postRequestFromPostText(contentText, linksArray: linksArray, accessToken: accessToken!), completionHandler: { (data, response, error) -> Void in
+                println("response: \(response)")
+                let responseString = NSString(data: data, encoding: NSUTF8StringEncoding)
+                println("responseString: \(responseString)")
+                self.extensionContext!.completeRequestReturningItems(nil, completionHandler: nil)
+            })
+            
+            urlSessionTask.resume()
         }
         
     }

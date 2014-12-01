@@ -88,7 +88,7 @@
                             <constraint firstItem="OBe-d4-59V" firstAttribute="centerY" secondItem="qyJ-MF-Fbm" secondAttribute="centerY" constant="0.5" id="BCf-3i-QTb"/>
                             <constraint firstAttribute="trailingMargin" secondItem="OBe-d4-59V" secondAttribute="trailing" constant="-16" id="CGo-1o-uTn"/>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="OBe-d4-59V" secondAttribute="bottom" constant="205" id="E16-d0-Yb5"/>
-                            <constraint firstItem="OBe-d4-59V" firstAttribute="centerX" secondItem="qyJ-MF-Fbm" secondAttribute="centerX" constant="-0.5" id="R8q-nS-6PG"/>
+                            <constraint firstItem="OBe-d4-59V" firstAttribute="centerX" secondItem="qyJ-MF-Fbm" secondAttribute="centerX" id="R8q-nS-6PG"/>
                             <constraint firstItem="tyO-1X-dJL" firstAttribute="bottom" secondItem="OBe-d4-59V" secondAttribute="bottom" constant="-10" id="cuU-Ge-5k9"/>
                             <constraint firstItem="OBe-d4-59V" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="topMargin" id="i3b-yS-e1Z"/>
                             <constraint firstItem="tyO-1X-dJL" firstAttribute="trailing" secondItem="OBe-d4-59V" secondAttribute="trailing" constant="-10" id="rCs-ts-HvY"/>
@@ -109,6 +109,7 @@
                         <outlet property="characterCountLabel" destination="tyO-1X-dJL" id="2ad-CN-q1b"/>
                         <outlet property="postTextView" destination="OBe-d4-59V" id="2XH-zf-XTP"/>
                         <outlet property="sendActivityIndicator" destination="qyJ-MF-Fbm" id="Keo-od-ZKY"/>
+                        <outlet property="textViewBottomConstraint" destination="E16-d0-Yb5" id="iys-7m-bOB"/>
                         <segue destination="CsH-xH-cuX" kind="presentation" identifier="ShowLoginViewController" modalPresentationStyle="formSheet" id="tkW-lj-KgW"/>
                     </connections>
                 </viewController>
@@ -138,12 +139,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="84m-zc-xkc">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="ADN Username" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="84m-zc-xkc">
                                 <rect key="frame" x="16" y="72" width="568" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vUx-fT-PXV">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="ADN Password (or one time password)" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vUx-fT-PXV">
                                 <rect key="frame" x="16" y="110" width="568" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
@@ -157,27 +158,15 @@
                                     <action selector="login:" destination="BMy-HQ-7Wc" eventType="touchUpInside" id="GdY-hc-FJj"/>
                                 </connections>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6sh-kx-Zec">
-                                <rect key="frame" x="16" y="186" width="568" height="213"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="213" id="Y15-iw-PN1"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="84m-zc-xkc" firstAttribute="trailing" secondItem="vUx-fT-PXV" secondAttribute="trailing" id="4cd-Dh-mTK"/>
                             <constraint firstItem="84m-zc-xkc" firstAttribute="leading" secondItem="vUx-fT-PXV" secondAttribute="leading" id="BvC-RO-rVE"/>
-                            <constraint firstItem="6sh-kx-Zec" firstAttribute="leading" secondItem="epy-kC-wKh" secondAttribute="leadingMargin" id="D9h-iz-kEl"/>
-                            <constraint firstItem="6sh-kx-Zec" firstAttribute="top" secondItem="uwy-aO-aBW" secondAttribute="bottom" constant="8" id="Fs8-iA-pEN"/>
                             <constraint firstItem="84m-zc-xkc" firstAttribute="trailing" secondItem="epy-kC-wKh" secondAttribute="trailingMargin" id="Luh-lO-J0q"/>
                             <constraint firstItem="vUx-fT-PXV" firstAttribute="top" secondItem="84m-zc-xkc" secondAttribute="bottom" constant="8" id="U3y-KG-Blq"/>
                             <constraint firstItem="vUx-fT-PXV" firstAttribute="trailing" secondItem="uwy-aO-aBW" secondAttribute="trailing" id="b6G-ZW-SrE"/>
                             <constraint firstItem="84m-zc-xkc" firstAttribute="leading" secondItem="epy-kC-wKh" secondAttribute="leadingMargin" id="hxh-zG-ScU"/>
-                            <constraint firstItem="6sh-kx-Zec" firstAttribute="trailing" secondItem="epy-kC-wKh" secondAttribute="trailingMargin" id="oIQ-RS-yIm"/>
                             <constraint firstItem="84m-zc-xkc" firstAttribute="top" secondItem="1SU-8K-VcA" secondAttribute="bottom" constant="28" id="que-az-WdB"/>
                             <constraint firstItem="uwy-aO-aBW" firstAttribute="top" secondItem="vUx-fT-PXV" secondAttribute="bottom" constant="8" id="umd-ZD-KJ4"/>
                             <constraint firstItem="vUx-fT-PXV" firstAttribute="leading" secondItem="uwy-aO-aBW" secondAttribute="leading" id="xeN-ry-RK4"/>
@@ -187,7 +176,6 @@
                     <connections>
                         <outlet property="loginButton" destination="uwy-aO-aBW" id="zd5-ZK-FxG"/>
                         <outlet property="passwordTextField" destination="vUx-fT-PXV" id="DOm-5l-4hn"/>
-                        <outlet property="responseTextView" destination="6sh-kx-Zec" id="wVp-qs-0tI"/>
                         <outlet property="usernameTextField" destination="84m-zc-xkc" id="oUj-ML-tdj"/>
                     </connections>
                 </viewController>
