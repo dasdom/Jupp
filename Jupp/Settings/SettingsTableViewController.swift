@@ -64,7 +64,7 @@ class SettingsTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("twitterAccountCell", forIndexPath: indexPath) as UITableViewCell
 
         let account = accounts![indexPath.row] as ACAccount
-        cell.textLabel.text = account.username
+        cell.textLabel!.text = account.username
         
         if activeAccountId == account.identifier {
             cell.accessoryType = .Checkmark

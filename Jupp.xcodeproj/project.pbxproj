@@ -29,6 +29,8 @@
 		F269BE9919B9A0C0009CEF03 /* TableViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F269BE8919B9A0C0009CEF03 /* TableViewProtocol.swift */; };
 		F269BE9A19B9A0C0009CEF03 /* TimeLineDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = F269BE8B19B9A0C0009CEF03 /* TimeLineDataSource.swift */; };
 		F269BE9B19B9A0C0009CEF03 /* TimeLineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F269BE8C19B9A0C0009CEF03 /* TimeLineViewController.swift */; };
+		F27030291A2F9F6500F89432 /* ADNAPICommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27030281A2F9F6500F89432 /* ADNAPICommunicator.swift */; };
+		F281E4891A32F74200B5322E /* URLStringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F281E4881A32F74200B5322E /* URLStringExtension.swift */; };
 		F28EF0E019C565FA0096CA48 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F28EF0DF19C565FA0096CA48 /* LaunchScreen.storyboard */; };
 		F28EF0E219C5B75E0096CA48 /* ClientData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F28EF0E119C5B75E0096CA48 /* ClientData.swift */; };
 		F292785E19BB29FC00515086 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F292785D19BB29FC00515086 /* SettingsTableViewController.swift */; };
@@ -48,6 +50,9 @@
 		F29F8224199FE8DD009A5C3C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2E0ECDD1995EC4100854B6D /* Images.xcassets */; };
 		F2B9A88719978793002575FD /* RequestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B9A88619978793002575FD /* RequestFactory.swift */; };
 		F2B9A888199788CB002575FD /* PostToADN.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2049CD01995F64300047E23 /* PostToADN.framework */; };
+		F2D75CF21A31D754008B2CC8 /* PostService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D75CF11A31D754008B2CC8 /* PostService.swift */; };
+		F2D75CF41A31DD14008B2CC8 /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D75CF31A31DD14008B2CC8 /* ImageService.swift */; };
+		F2D75CF51A31DFCA008B2CC8 /* KeychainAccess.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F29F81F6199FA739009A5C3C /* KeychainAccess.framework */; };
 		F2E0ECD71995EC4100854B6D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E0ECD61995EC4100854B6D /* AppDelegate.swift */; };
 		F2E0ECD91995EC4100854B6D /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E0ECD81995EC4100854B6D /* PostViewController.swift */; };
 		F2E0ECDC1995EC4100854B6D /* Post.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2E0ECDA1995EC4100854B6D /* Post.storyboard */; };
@@ -175,6 +180,8 @@
 		F269BE8919B9A0C0009CEF03 /* TableViewProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewProtocol.swift; sourceTree = "<group>"; };
 		F269BE8B19B9A0C0009CEF03 /* TimeLineDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeLineDataSource.swift; sourceTree = "<group>"; };
 		F269BE8C19B9A0C0009CEF03 /* TimeLineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeLineViewController.swift; sourceTree = "<group>"; };
+		F27030281A2F9F6500F89432 /* ADNAPICommunicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ADNAPICommunicator.swift; sourceTree = "<group>"; };
+		F281E4881A32F74200B5322E /* URLStringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLStringExtension.swift; sourceTree = "<group>"; };
 		F28EF0DF19C565FA0096CA48 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F28EF0E119C5B75E0096CA48 /* ClientData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientData.swift; sourceTree = "<group>"; };
 		F292785D19BB29FC00515086 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsTableViewController.swift; path = Settings/SettingsTableViewController.swift; sourceTree = "<group>"; };
@@ -197,6 +204,8 @@
 		F29F8214199FA775009A5C3C /* KeychainAccess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainAccess.swift; sourceTree = "<group>"; };
 		F29F8222199FAE82009A5C3C /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		F2B9A88619978793002575FD /* RequestFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestFactory.swift; sourceTree = "<group>"; };
+		F2D75CF11A31D754008B2CC8 /* PostService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostService.swift; sourceTree = "<group>"; };
+		F2D75CF31A31DD14008B2CC8 /* ImageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
 		F2E0ECD11995EC4100854B6D /* Jupp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Jupp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2E0ECD51995EC4100854B6D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F2E0ECD61995EC4100854B6D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -213,6 +222,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F2D75CF51A31DFCA008B2CC8 /* KeychainAccess.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -269,6 +279,9 @@
 			children = (
 				F2049CD41995F64300047E23 /* PostToADN.h */,
 				F2B9A88619978793002575FD /* RequestFactory.swift */,
+				F27030281A2F9F6500F89432 /* ADNAPICommunicator.swift */,
+				F2D75CF11A31D754008B2CC8 /* PostService.swift */,
+				F2D75CF31A31DD14008B2CC8 /* ImageService.swift */,
 				F2049CD21995F64300047E23 /* Supporting Files */,
 			);
 			path = PostToADN;
@@ -456,6 +469,7 @@
 				F29F8222199FAE82009A5C3C /* LoginViewController.swift */,
 				F28EF0E119C5B75E0096CA48 /* ClientData.swift */,
 				F292785D19BB29FC00515086 /* SettingsTableViewController.swift */,
+				F281E4881A32F74200B5322E /* URLStringExtension.swift */,
 				F269BE7919B9A0C0009CEF03 /* Cells */,
 				F269BE7B19B9A0C0009CEF03 /* DataFetch */,
 				F269BE7F19B9A0C0009CEF03 /* Model */,
@@ -669,7 +683,11 @@
 					};
 					F2049CF219961FF300047E23 = {
 						CreatedOnToolsVersion = 6.0;
+						DevelopmentTeam = Q6PD97MRX4;
 						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
 							com.apple.Keychain = {
 								enabled = 1;
 							};
@@ -684,8 +702,12 @@
 					};
 					F2E0ECD01995EC4100854B6D = {
 						CreatedOnToolsVersion = 6.0;
+						DevelopmentTeam = Q6PD97MRX4;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+							com.apple.BackgroundModes = {
 								enabled = 0;
 							};
 							com.apple.Keychain = {
@@ -803,6 +825,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				F2B9A88719978793002575FD /* RequestFactory.swift in Sources */,
+				F2D75CF41A31DD14008B2CC8 /* ImageService.swift in Sources */,
+				F2D75CF21A31D754008B2CC8 /* PostService.swift in Sources */,
+				F27030291A2F9F6500F89432 /* ADNAPICommunicator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -862,6 +887,7 @@
 				F269BE8F19B9A0C0009CEF03 /* APICommunicator.swift in Sources */,
 				F2E0ECD71995EC4100854B6D /* AppDelegate.swift in Sources */,
 				F292786419BC234F00515086 /* Link.swift in Sources */,
+				F281E4891A32F74200B5322E /* URLStringExtension.swift in Sources */,
 				F269BE9319B9A0C0009CEF03 /* Meta.swift in Sources */,
 				F269BE8D19B9A0C0009CEF03 /* PostCell.swift in Sources */,
 				F292785E19BB29FC00515086 /* SettingsTableViewController.swift in Sources */,
@@ -984,6 +1010,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -1035,7 +1062,7 @@
 				INFOPLIST_FILE = ShareToADN/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "61741281-9740-4118-973a-02fc8c351b6d";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -1049,7 +1076,7 @@
 				INFOPLIST_FILE = ShareToADN/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "61741281-9740-4118-973a-02fc8c351b6d";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -1227,7 +1254,7 @@
 				INFOPLIST_FILE = Jupp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = Jupp;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "ca3c7350-5cce-4834-8f6e-2b2d7a78b489";
 				SWIFT_OBJC_BRIDGING_HEADER = "Jupp/TimeLine/Jupp-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -1240,13 +1267,13 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Jupp/Jupp.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = Jupp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = Jupp;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "ca3c7350-5cce-4834-8f6e-2b2d7a78b489";
 				SWIFT_OBJC_BRIDGING_HEADER = "Jupp/TimeLine/Jupp-Bridging-Header.h";
 			};
 			name = Release;

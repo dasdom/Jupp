@@ -12,7 +12,7 @@ import KeychainAccess
 import Accounts
 import Social
 
-class PostViewController: UIViewController, UITextViewDelegate {
+class PostViewController: UIViewController, UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     var accessToken: String?
     var accountStore: ACAccountStore?
@@ -21,6 +21,7 @@ class PostViewController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var characterCountLabel: UILabel!
     @IBOutlet weak var sendActivityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var textViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var imageView: UIImageView!
     
     var isPosting = false
     
@@ -77,8 +78,6 @@ class PostViewController: UIViewController, UITextViewDelegate {
     
     @IBAction func post(sender: AnyObject) {
         
-//        var button = UIButton()
-//        button.setTitle("title", forState: .Normal)
         var errorMessage: String?
         if  postTextView.text?.utf16Count < 1 {
             errorMessage = NSLocalizedString("A post should have at least one character.", comment: "Empty post alert message")
@@ -102,9 +101,22 @@ class PostViewController: UIViewController, UITextViewDelegate {
             return
         }
         
+//        let imageUploadRequest = RequestFactory.imageUploadRequest(imageView.image!, accessToken: accessToken!)
+//        
+//        let sessionId = "de.dasdom.jupp.image.backgroundsession"
+//        let config = NSURLSessionConfiguration.backgroundSessionConfigurationWithIdentifier(sessionId)
+//        
+//        config.sharedContainerIdentifier = "group.de.dasdom.Jupp"
+//        
+//        let session1 = NSURLSession(configuration: config, delegate: PostService.sharedService, delegateQueue: NSOperationQueue.mainQueue())
+//        
+//        let sessionTask1 = session1.dataTaskWithRequest(imageUploadRequest)
+//        sessionTask1.resume()
+//        return
+        
         let linkExtractor = LinkExtractor()
         let (postText, linksArray) = linkExtractor.extractLinks(postTextView.text)
-        let request = RequestFactory.postRequestFromPostText(postText, linksArray: linksArray, accessToken: accessToken!, replyTo: replyToPost?.id)
+//        let request = RequestFactory.postRequestFromPostText(postText, linksArray: linksArray, accessToken: accessToken!, replyTo: replyToPost?.id)
         
 //        var tweetText = postText
 //        for linkDict in linksArray {
@@ -121,16 +133,18 @@ class PostViewController: UIViewController, UITextViewDelegate {
 
         sendActivityIndicator.startAnimating()
         let session = NSURLSession.sharedSession()
-        let sessionTask = session.dataTaskWithRequest(request, completionHandler: { (data, response, error) in
-            
+//        let sessionTask = session.dataTaskWithRequest(request, completionHandler: { (data, response, error) in
+        
 //            let responseString = NSString(data: data, encoding: NSUTF8StringEncoding)
-//            
+//
 //            println("responseString \(responseString)")
 //            println("response: \(response)")
 //            println("error: \(error)")
-            let responseDict  = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as [String:AnyObject]
-            println("responseDict: \(responseDict)")
-            
+//            let responseDict  = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as [String:AnyObject]
+//            println("responseDict: \(responseDict)")
+        
+        ADNAPICommunicator().postText(postText, linksArray: linksArray, accessToken: accessToken!, image: imageView.image) {
+        
             dispatch_async(dispatch_get_main_queue(), {
                 self.sendActivityIndicator.stopAnimating()
                 
@@ -141,7 +155,7 @@ class PostViewController: UIViewController, UITextViewDelegate {
                     return
                 }
             })
-            if linksArray.count > 0 {
+            if linksArray.count > 1 {
                 dispatch_async(dispatch_get_main_queue(), {
                     self.resetTextView()
                     })
@@ -150,7 +164,7 @@ class PostViewController: UIViewController, UITextViewDelegate {
             
             if let accountIdentifier = NSUserDefaults.standardUserDefaults().stringForKey(kActiveAccountIdKey) {
                 
-                self.tweetText(postText, linksArray: linksArray, accountIdentifier: accountIdentifier, completion: {
+                self.tweetText(postText, linksArray: linksArray, accountIdentifier: accountIdentifier, image: self.imageView.image, completion: {
                     dispatch_async(dispatch_get_main_queue(), {
                         self.resetTextView()
                     })
@@ -161,9 +175,7 @@ class PostViewController: UIViewController, UITextViewDelegate {
                 })
             }
             
-        })
-    
-        sessionTask.resume()
+        }
     }
     
     func textViewDidChange(textView: UITextView!) {
@@ -191,20 +203,25 @@ class PostViewController: UIViewController, UITextViewDelegate {
     }
     
     //MARK: Twitter
-    func tweetText(text: String, linksArray: [[String:String]], accountIdentifier: String, completion: () -> ()) {
+    func tweetText(text: String, linksArray: [[String:String]], accountIdentifier: String, image: UIImage?, completion: () -> ()) {
         var postTextPartOne = text
         var postTextPartTwo = ""
+
+        var addToFirstPart = true
         if text.utf16Count > 140 {
 //            let index = advance(postTextPartOne.startIndex, 130)
 //            postTextPartTwo = "..." + postTextPartOne.substringFromIndex(index) + "\n2/2"
 //            postTextPartOne = postTextPartOne.substringToIndex(index) + "...\n1/2"
             let components = text.componentsSeparatedByString(" ")
-            var addToFirstPart = true
             
             postTextPartOne = ""
             for word in components {
                 if postTextPartOne.utf16Count + word.utf16Count > 130 {
-                    addToFirstPart = false
+                    if word.isURL() && postTextPartOne.utf16Count + 10 < 130 {
+                        addToFirstPart = true
+                    } else {
+                        addToFirstPart = false
+                    }
                 }
                 if addToFirstPart {
                     postTextPartOne += " \(word)"
@@ -214,8 +231,37 @@ class PostViewController: UIViewController, UITextViewDelegate {
             }
         }
         
+        if linksArray.count > 0 {
+            let linkString = linksArray.first!["url"]!
+            if addToFirstPart {
+                if postTextPartOne.utf16Count < 130 {
+                    
+                    postTextPartOne += " \(linkString)"
+                } else {
+                    dispatch_async(dispatch_get_main_queue(), {
+                        
+                        let alertMessage = "Tweeting was not possible because there would be two tweets but the second one would only have a link in in."
+                        let alert = UIAlertController(title: "There was an error", message: alertMessage, preferredStyle: .Alert)
+                        let okAction = UIAlertAction(title: "OK", style: .Default, handler: { (action) -> Void in
+                            println("OK")
+                        })
+                        alert.addAction(okAction)
+                        
+                        self.presentViewController(alert, animated: true, completion: nil)
+                        
+                        completion()
+                    })
+                    return
+                }
+            } else {
+                postTextPartTwo += " \(linkString)"
+            }
+        }
+        
         if postTextPartTwo != "" {
-            postTextPartOne = postTextPartOne + " ...\n1/2"
+            if postTextPartOne.utf16Count < 134 {
+                postTextPartOne = postTextPartOne + " ...\n1/2"
+            }
             postTextPartTwo = "... " + postTextPartTwo + "\n2/2"
 
         }
@@ -223,14 +269,44 @@ class PostViewController: UIViewController, UITextViewDelegate {
         println("postTextPartOne: \(postTextPartOne)")
         println("postTextPartTwo: \(postTextPartTwo)")
         
+        var urlString = "https://api.twitter.com/1.1/statuses/update.json"
+        if imageView.image != nil {
+            urlString = "https://api.twitter.com/1.1/statuses/update_with_media.json"
+        }
+        
         let parameters = ["status" : postTextPartOne]
-        let tweetRequest = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: .POST, URL: NSURL(string: "https://api.twitter.com/1.1/statuses/update.json"), parameters: parameters)
+        let tweetRequest = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: .POST, URL: NSURL(string: urlString), parameters: parameters)
+        
+        if imageView.image != nil {
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.dateFormat = "yyyy_MM_dd'T'HH_mm_ss'Z'"
+            let imageName = "\(dateFormatter.stringFromDate(NSDate()))" + "jpg"
+            
+            tweetRequest.addMultipartData(UIImageJPEGRepresentation(image!, 0.3), withName: "media", type: "image/jpg", filename: imageName)
+        }
         
         let account = accountStore?.accountWithIdentifier(accountIdentifier)
         tweetRequest.account = account
         tweetRequest.performRequestWithHandler { (tweetData, tweetResponse, tweetError) in
             println("error: \(tweetError)")
             println("tweetResponse: \(tweetResponse)")
+            
+            if tweetResponse.statusCode != 200 {
+                dispatch_async(dispatch_get_main_queue(), {
+                    
+                    let alertMessage = "Tweeting didn't work."
+                    let alert = UIAlertController(title: "There was an error", message: alertMessage, preferredStyle: .Alert)
+                    let okAction = UIAlertAction(title: "OK", style: .Default, handler: { (action) -> Void in
+                        println("OK")
+                    })
+                    alert.addAction(okAction)
+                    
+                    self.presentViewController(alert, animated: true, completion: nil)
+                    
+                    completion()
+                })
+                return
+            }
             
             if postTextPartTwo != "" {
                 let parameters = ["status" : postTextPartTwo]
@@ -266,6 +342,7 @@ class PostViewController: UIViewController, UITextViewDelegate {
         isPosting = false
         postTextView.text = ""
         updateCharacterCount()
+        imageView.image = nil
     }
     
     func cancel(sender: UIBarButtonItem) {
@@ -275,12 +352,28 @@ class PostViewController: UIViewController, UITextViewDelegate {
     func keyboardWillShow(sender: NSNotification) {
         if let userInfo = sender.userInfo {
             if let keyboardHeight = userInfo[UIKeyboardFrameEndUserInfoKey]?.CGRectValue().size.height {
-                textViewBottomConstraint.constant = keyboardHeight
+                textViewBottomConstraint.constant = keyboardHeight + 40.0
                 UIView.animateWithDuration(0.25, animations: { () -> Void in
                     self.view.layoutIfNeeded()
                 })
             }
         }
         
+    }
+    
+    // MARK: Button actions
+    @IBAction func addPhoto(sender: UIButton) {
+        let imagePickerViewController = UIImagePickerController()
+        imagePickerViewController.sourceType = .PhotoLibrary
+        imagePickerViewController.delegate = self
+        
+        presentViewController(imagePickerViewController, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
+        let image = info[UIImagePickerControllerOriginalImage] as UIImage
+        imageView.image = image
+        
+        picker.dismissViewControllerAnimated(true, completion: nil)
     }
 }

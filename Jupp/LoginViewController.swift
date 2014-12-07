@@ -45,7 +45,10 @@ class LoginViewController: UIViewController {
         let clientId = ClientData.clientId
         let passwordGrantSecret = ClientData.passwordGrantSecret
         
-        var postString = "client_id=\(clientId)&password_grant_secret=\(passwordGrantSecret)&grant_type=password&username=\(usernameTextField.text)&password=\(passwordTextField.text)&scope=write_post"
+        let username: String = usernameTextField.text.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
+        let password: String = passwordTextField.text.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
+        
+        var postString = "client_id=\(clientId)&password_grant_secret=\(passwordGrantSecret)&grant_type=password&username=\(username)&password=\(password)&scope=write_post"
         
         var request = NSMutableURLRequest(URL: NSURL(string: urlString)!)
         request.HTTPMethod = "POST"
@@ -62,9 +65,9 @@ class LoginViewController: UIViewController {
             
             let responseDict  = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as [String:AnyObject]
             println("responseDict: \(responseDict)")
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                self.responseTextView.text = "\(responseDict)"
-            })
+//            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+//                self.responseTextView.text = "\(responseDict)"
+//            })
 
             if let error = responseDict["error"] as? NSString {
                 let errorText = responseDict["error_text"] as? NSString
