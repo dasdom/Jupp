@@ -1,7 +1,7 @@
 ADeelN
 ======
 
-This is an app which contains an iOS 8 share extension for App.net.
+This is an app which contains an iOS 8 share extension for App.net. You can find it in the [App Store](https://itunes.apple.com/de/app/adeeln/id909926740?l=en&mt=8).
 
 ##Logo
 Please feel free to use the icon designed for the original extension, which was made by [@charl](http://dunois.eu). 
