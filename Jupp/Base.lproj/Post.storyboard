@@ -103,6 +103,12 @@
                                     <action selector="addPhoto:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="ehW-6p-GFC"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Status" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MQc-cx-lU3">
+                                <rect key="frame" x="281" y="339" width="39" height="16"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.90196079015731812" green="0.90196079015731812" blue="0.90196079015731812" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -115,7 +121,9 @@
                             <constraint firstItem="tyO-1X-dJL" firstAttribute="top" secondItem="OBe-d4-59V" secondAttribute="bottom" constant="8" id="IaE-FZ-QaX"/>
                             <constraint firstItem="bSE-64-nmN" firstAttribute="leading" secondItem="5B0-6n-15t" secondAttribute="trailing" constant="8" id="K6o-rR-8xa"/>
                             <constraint firstItem="OBe-d4-59V" firstAttribute="centerX" secondItem="qyJ-MF-Fbm" secondAttribute="centerX" id="R8q-nS-6PG"/>
+                            <constraint firstAttribute="centerX" secondItem="MQc-cx-lU3" secondAttribute="centerX" id="S8Y-2z-60k"/>
                             <constraint firstItem="tyO-1X-dJL" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="XYe-Mb-XfH"/>
+                            <constraint firstItem="MQc-cx-lU3" firstAttribute="top" secondItem="OBe-d4-59V" secondAttribute="bottom" constant="8" id="bmd-yf-dI5"/>
                             <constraint firstItem="tyO-1X-dJL" firstAttribute="bottom" secondItem="OBe-d4-59V" secondAttribute="bottom" constant="-13" id="cuU-Ge-5k9"/>
                             <constraint firstItem="bSE-64-nmN" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailing" id="e9O-bw-9Nj"/>
                             <constraint firstItem="OBe-d4-59V" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="topMargin" id="i3b-yS-e1Z"/>
@@ -144,6 +152,7 @@
                         <outlet property="imageView" destination="5B0-6n-15t" id="0Kx-az-u2o"/>
                         <outlet property="postTextView" destination="OBe-d4-59V" id="2XH-zf-XTP"/>
                         <outlet property="sendActivityIndicator" destination="qyJ-MF-Fbm" id="Keo-od-ZKY"/>
+                        <outlet property="statusLabel" destination="MQc-cx-lU3" id="KKC-7Z-20f"/>
                         <outlet property="textViewBottomConstraint" destination="E16-d0-Yb5" id="iys-7m-bOB"/>
                         <segue destination="CsH-xH-cuX" kind="presentation" identifier="ShowLoginViewController" modalPresentationStyle="formSheet" id="tkW-lj-KgW"/>
                     </connections>

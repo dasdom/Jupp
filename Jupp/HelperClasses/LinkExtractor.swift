@@ -17,7 +17,9 @@ public class LinkExtractor {
     public func extractLinks(fromString: String) -> (postString: String, linkArray: Array<Dictionary<String, String>>) {
 
         var linkArray = Array<Dictionary<String, String>>()
-        var stringToScan = fromString
+        
+        // Add a space at the beginning to catch also links starting at zero
+        var stringToScan = " \(fromString)"
         var currentlyScannedString: String?
         var scannerDidScan = true
         
@@ -66,6 +68,7 @@ public class LinkExtractor {
         
         println("linkArray \(linkArray)")
         
-        return (stringToScan, linkArray)
+        // Remove the space at the beginning.
+        return (stringToScan.substringFromIndex(advance(stringToScan.startIndex, 1)), linkArray)
     }
 }

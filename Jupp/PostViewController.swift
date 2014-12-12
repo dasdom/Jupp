@@ -23,6 +23,8 @@ class PostViewController: UIViewController, UITextViewDelegate, UIImagePickerCon
     @IBOutlet weak var textViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var imageView: UIImageView!
     
+    @IBOutlet weak var statusLabel: UILabel!
+    
     var isPosting = false
     
     var replyToPost: Post?
@@ -32,6 +34,7 @@ class PostViewController: UIViewController, UITextViewDelegate, UIImagePickerCon
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
 
+        statusLabel.text = ""
     }
 
     override func didReceiveMemoryWarning() {
@@ -143,6 +146,7 @@ class PostViewController: UIViewController, UITextViewDelegate, UIImagePickerCon
 //            let responseDict  = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as [String:AnyObject]
 //            println("responseDict: \(responseDict)")
         
+        statusLabel.text = "...Posting to App.net..."
         ADNAPICommunicator().postText(postText, linksArray: linksArray, accessToken: accessToken!, image: imageView.image) {
         
             dispatch_async(dispatch_get_main_queue(), {
@@ -163,7 +167,9 @@ class PostViewController: UIViewController, UITextViewDelegate, UIImagePickerCon
             }
             
             if let accountIdentifier = NSUserDefaults.standardUserDefaults().stringForKey(kActiveAccountIdKey) {
-                
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    self.statusLabel.text = "...Tweeting to Twitter..."
+                })
                 self.tweetText(postText, linksArray: linksArray, accountIdentifier: accountIdentifier, image: self.imageView.image, completion: {
                     dispatch_async(dispatch_get_main_queue(), {
                         self.resetTextView()
@@ -240,7 +246,7 @@ class PostViewController: UIViewController, UITextViewDelegate, UIImagePickerCon
                 } else {
                     dispatch_async(dispatch_get_main_queue(), {
                         
-                        let alertMessage = "Tweeting was not possible because there would be two tweets but the second one would only have a link in in."
+                        let alertMessage = "Tweeting was not possible because there would be two tweets but the second one would only have a link in it."
                         let alert = UIAlertController(title: "There was an error", message: alertMessage, preferredStyle: .Alert)
                         let okAction = UIAlertAction(title: "OK", style: .Default, handler: { (action) -> Void in
                             println("OK")
@@ -343,6 +349,7 @@ class PostViewController: UIViewController, UITextViewDelegate, UIImagePickerCon
         postTextView.text = ""
         updateCharacterCount()
         imageView.image = nil
+        statusLabel.text = ""
     }
     
     func cancel(sender: UIBarButtonItem) {
