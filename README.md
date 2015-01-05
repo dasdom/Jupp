@@ -1,4 +1,4 @@
-ADeelN
+Jupp
 ======
 
 This is an app which contains an iOS 8 share extension for App.net. You can find it in the [App Store](https://itunes.apple.com/de/app/adeeln/id909926740?l=en&mt=8).
