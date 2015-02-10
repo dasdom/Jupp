@@ -84,7 +84,7 @@ class LoginViewController: UIViewController {
                 return
             }
             
-            if let accessToken = responseDict["access_token"]! as AnyObject as? String {
+            if let accessToken = responseDict["access_token"]! as? String {
                 
                 KeychainAccess.setPassword(accessToken, account: "AccessToken")
                 
