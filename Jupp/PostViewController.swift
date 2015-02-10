@@ -241,66 +241,8 @@ class PostViewController: UIViewController, UITextViewDelegate, UIImagePickerCon
     
     //MARK: Twitter
     func tweetText(text: String, linksArray: [[String:String]], accountIdentifier: String, image: UIImage?, completion: () -> ()) {
-//        var tweetOne = text
-//        var tweetTwo = ""
-//
-//        var addToFirstPart = true
-//        if text.utf16Count > 140 {
-//            let components = text.componentsSeparatedByString(" ")
-//            
-//            tweetOne = ""
-//            for word in components {
-//                if tweetOne.utf16Count + word.utf16Count > 130 {
-//                    if word.isURL() && tweetOne.utf16Count + 10 < 130 {
-//                        addToFirstPart = true
-//                    } else {
-//                        addToFirstPart = false
-//                    }
-//                }
-//                if addToFirstPart {
-//                    tweetOne += " \(word)"
-//                } else {
-//                    tweetTwo += " \(word)"
-//                }
-//            }
-//        }
         
         var (tweetOne, tweetTwo) = tweetsFromText(text, linksArray: linksArray)
-        
-//        if linksArray.count > 0 {
-//            let linkString = linksArray.first!["url"]!
-//            if addToFirstPart {
-//                if tweetOne.utf16Count < 130 {
-//                    
-//                    tweetOne += " \(linkString)"
-//                } else {
-//                    dispatch_async(dispatch_get_main_queue(), {
-//                        
-//                        let alertMessage = "Tweeting was not possible because there would be two tweets but the second one would only have a link in it."
-//                        let alert = UIAlertController(title: "There was an error", message: alertMessage, preferredStyle: .Alert)
-//                        let okAction = UIAlertAction(title: "OK", style: .Default, handler: { (action) -> Void in
-//                            println("OK")
-//                        })
-//                        alert.addAction(okAction)
-//                        
-//                        self.presentViewController(alert, animated: true, completion: nil)
-//                        
-//                        completion()
-//                    })
-//                    return
-//                }
-//            } else {
-//                tweetTwo += " \(linkString)"
-//            }
-//        }
-//        
-//        if tweetTwo != "" {
-//            if tweetOne.utf16Count < 134 {
-//                tweetOne = tweetOne + " ...\n1/2"
-//            }
-//            tweetTwo = "... " + tweetTwo + "\n2/2"
-//
-//        }
         
         println("postTextPartOne: \(tweetOne)")
         println("postTextPartTwo: \(tweetTwo)")
