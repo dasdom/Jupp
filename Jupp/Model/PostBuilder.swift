@@ -20,43 +20,35 @@ class PostBuilder : CanBuildPost {
     func postFromDictionary(dictionary: NSDictionary) -> Post? {
         var post: Post = Post()
         
-        let canonicalURLString = dictionary["canonical_url"] as? String
-        let id = dictionary["id"] as? String
-        let text = dictionary["text"] as? String
-        let threadId = dictionary["thread_id"] as? String
-        
-        let user = userBuilder.userFromDictionary(dictionary["user"] as NSDictionary)
-        
-        let rawMentionsArray = (dictionary["entities"] as NSDictionary)["mentions"] as NSArray
-        var mentionsArray = [Mention]()
-        for mentionsDictionary: AnyObject in rawMentionsArray {
-//            println("mentionsDictionary \(mentionsDictionary)")
-            if let mention = mentionBuilder.mentionFromDictionary(mentionsDictionary as NSDictionary) {
-                mentionsArray.append(mention)
+        if let canonicalURLString = dictionary["canonical_url"] as? String, id = dictionary["id"] as? String, text = dictionary["text"] as? String, threadId = dictionary["thread_id"] as? String, user = userBuilder.userFromDictionary(dictionary["user"] as! NSDictionary) {
+          
+            let rawMentionsArray = (dictionary["entities"] as! NSDictionary)["mentions"] as! NSArray
+            var mentionsArray = [Mention]()
+            for mentionsDictionary: AnyObject in rawMentionsArray {
+                if let mention = mentionBuilder.mentionFromDictionary(mentionsDictionary as! NSDictionary) {
+                    mentionsArray.append(mention)
+                }
             }
-        }
-        
-        let rawLinksArray = (dictionary["entities"] as NSDictionary)["links"] as NSArray
-        var linksArray = [Link]()
-        for linkDictionary: AnyObject in rawLinksArray {
-            if let link = linkBuilder.linkFromDictionary(linkDictionary as NSDictionary) {
-                linksArray.append(link)
+            
+            let rawLinksArray = (dictionary["entities"] as! NSDictionary)["links"] as! NSArray
+            var linksArray = [Link]()
+            for linkDictionary: AnyObject in rawLinksArray {
+                if let link = linkBuilder.linkFromDictionary(linkDictionary as! NSDictionary) {
+                    linksArray.append(link)
+                }
             }
-        }
-        
-//        println("\(canonicalURLString) && \(id) && \(text) && \(threadId)")
-        if canonicalURLString != nil && id != nil && text != nil && threadId != nil && user != nil {
-            post.canonicalURL   = NSURL(string: canonicalURLString!)!
-            post.id             = id!.toInt()!
-            post.text           = text!
-            post.threadId       = threadId!.toInt()!
-            post.user           = user!
+          
+            post.canonicalURL   = NSURL(string: canonicalURLString)!
+            post.id             = id.toInt()!
+            post.text           = text
+            post.threadId       = threadId.toInt()!
+            post.user           = user
             post.mentions       = mentionsArray
             post.links          = linksArray
             
             post.attributedText = {
                 let tintColor = UIColor(red: 0.206, green: 0.338, blue: 0.586, alpha: 1.000)
-                let theAttributedText = NSMutableAttributedString(string: text!)
+                let theAttributedText = NSMutableAttributedString(string: text)
                 for mention in mentionsArray {
                     theAttributedText.addAttribute(NSForegroundColorAttributeName, value: tintColor, range: NSMakeRange(mention.position, mention.length))
                 }

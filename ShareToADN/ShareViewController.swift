@@ -62,8 +62,10 @@ class ShareViewController: SLComposeServiceViewController, NSURLSessionDelegate 
         let items = extensionContext?.inputItems
         var itemProvider: NSItemProvider?
         
+        println("items: \(items)")
+        
         if items != nil && items!.isEmpty == false {
-            let item = items![0] as NSExtensionItem
+            let item = items![0] as! NSExtensionItem
             if let attachments = item.attachments {
 //                if !attachments.isEmpty {
 //                    itemProvider = attachments[0] as? NSItemProvider
@@ -160,7 +162,7 @@ class ShareViewController: SLComposeServiceViewController, NSURLSessionDelegate 
 
     override func configurationItems() -> [AnyObject]! {
         // To add configuration options via table cells at the bottom of the sheet, return an array of SLComposeSheetConfigurationItem here.
-        return NSArray()
+        return NSArray() as! [AnyObject]
     }
 
 //    func postRequestFromPostText(postText: String, linksArray: [[String:String]], accessToken:String) -> NSURLRequest {

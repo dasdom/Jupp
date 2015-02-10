@@ -28,8 +28,8 @@ class Link {
     required init(coder aDecoder: NSCoder) {
         length = aDecoder.decodeIntegerForKey(Constants.lengthKey)
         position = aDecoder.decodeIntegerForKey(Constants.positionKey)
-        text = aDecoder.decodeObjectForKey(Constants.textKey) as String
-        url = aDecoder.decodeObjectForKey(Constants.urlKey) as String
+        text = aDecoder.decodeObjectForKey(Constants.textKey) as! String
+        url = aDecoder.decodeObjectForKey(Constants.urlKey) as! String
     }
     
     func encodeWithCoder(aCoder: NSCoder) {

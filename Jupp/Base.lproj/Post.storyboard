@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Lxk-pZ-dVB">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6724" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Lxk-pZ-dVB">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6711"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -70,7 +70,7 @@
                                 <connections>
                                     <outlet property="delegate" destination="vXZ-lx-hvc" id="L6z-Xh-Jiy"/>
                                     <outletCollection property="gestureRecognizers" destination="5xM-h2-SKE" appends="YES" id="wwB-6E-CRH"/>
-                                    <outletCollection property="gestureRecognizers" destination="zXW-v8-o9K" appends="YES" id="I6u-l6-4an"/>
+                                    <outletCollection property="gestureRecognizers" destination="gkG-XY-DsC" appends="YES" id="tge-Fv-xPp"/>
                                 </connections>
                             </textView>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="qyJ-MF-Fbm">
@@ -83,13 +83,6 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5B0-6n-15t">
-                                <rect key="frame" x="516" y="335" width="30" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="ER3-Rg-EEb"/>
-                                    <constraint firstAttribute="width" constant="30" id="Rct-JA-chh"/>
-                                </constraints>
-                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bSE-64-nmN">
                                 <rect key="frame" x="554" y="335" width="46" height="30"/>
                                 <constraints>
@@ -109,25 +102,63 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Saj-6q-NS8">
+                                <rect key="frame" x="0.0" y="400" width="600" height="136"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Twitter Preview" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d2b-9O-aSH">
+                                <rect key="frame" x="242" y="371" width="116" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B6i-bD-zi5">
+                                <rect key="frame" x="500" y="335" width="46" height="30"/>
+                                <state key="normal" title="↕︎">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="toggleKeyboard:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="kpw-z0-dhw"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5B0-6n-15t">
+                                <rect key="frame" x="462" y="335" width="30" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="ER3-Rg-EEb"/>
+                                    <constraint firstAttribute="width" constant="30" id="Rct-JA-chh"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.90196079015731812" green="0.90196079015731812" blue="0.90196079015731812" alpha="1" colorSpace="calibratedRGB"/>
+                        <gestureRecognizers/>
                         <constraints>
+                            <constraint firstItem="bSE-64-nmN" firstAttribute="leading" secondItem="B6i-bD-zi5" secondAttribute="trailing" constant="8" id="0yP-AK-0Bl"/>
+                            <constraint firstItem="B6i-bD-zi5" firstAttribute="leading" secondItem="5B0-6n-15t" secondAttribute="trailing" constant="8" id="3Nn-hH-xkK"/>
                             <constraint firstItem="bSE-64-nmN" firstAttribute="top" secondItem="OBe-d4-59V" secondAttribute="bottom" constant="4" id="3iQ-QV-Wxg"/>
                             <constraint firstItem="5B0-6n-15t" firstAttribute="top" secondItem="OBe-d4-59V" secondAttribute="bottom" constant="4" id="7Pd-1u-o7x"/>
                             <constraint firstItem="OBe-d4-59V" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="-16" id="7Ts-CG-lon"/>
                             <constraint firstItem="OBe-d4-59V" firstAttribute="centerY" secondItem="qyJ-MF-Fbm" secondAttribute="centerY" constant="0.5" id="BCf-3i-QTb"/>
+                            <constraint firstAttribute="trailing" secondItem="Saj-6q-NS8" secondAttribute="trailing" id="BF4-ch-C4R"/>
                             <constraint firstAttribute="trailingMargin" secondItem="OBe-d4-59V" secondAttribute="trailing" constant="-16" id="CGo-1o-uTn"/>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="OBe-d4-59V" secondAttribute="bottom" constant="205" id="E16-d0-Yb5"/>
                             <constraint firstItem="tyO-1X-dJL" firstAttribute="top" secondItem="OBe-d4-59V" secondAttribute="bottom" constant="8" id="IaE-FZ-QaX"/>
-                            <constraint firstItem="bSE-64-nmN" firstAttribute="leading" secondItem="5B0-6n-15t" secondAttribute="trailing" constant="8" id="K6o-rR-8xa"/>
+                            <constraint firstItem="B6i-bD-zi5" firstAttribute="width" secondItem="bSE-64-nmN" secondAttribute="width" id="JFe-U6-wXK"/>
                             <constraint firstItem="OBe-d4-59V" firstAttribute="centerX" secondItem="qyJ-MF-Fbm" secondAttribute="centerX" id="R8q-nS-6PG"/>
                             <constraint firstAttribute="centerX" secondItem="MQc-cx-lU3" secondAttribute="centerX" id="S8Y-2z-60k"/>
+                            <constraint firstItem="d2b-9O-aSH" firstAttribute="top" secondItem="OBe-d4-59V" secondAttribute="bottom" constant="40" id="T8W-IT-7lD"/>
+                            <constraint firstItem="Saj-6q-NS8" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="Wpb-n0-0bY"/>
                             <constraint firstItem="tyO-1X-dJL" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="XYe-Mb-XfH"/>
                             <constraint firstItem="MQc-cx-lU3" firstAttribute="top" secondItem="OBe-d4-59V" secondAttribute="bottom" constant="8" id="bmd-yf-dI5"/>
                             <constraint firstItem="tyO-1X-dJL" firstAttribute="bottom" secondItem="OBe-d4-59V" secondAttribute="bottom" constant="-13" id="cuU-Ge-5k9"/>
                             <constraint firstItem="bSE-64-nmN" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailing" id="e9O-bw-9Nj"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="Saj-6q-NS8" secondAttribute="bottom" id="gWB-cq-elE"/>
                             <constraint firstItem="OBe-d4-59V" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="topMargin" id="i3b-yS-e1Z"/>
+                            <constraint firstItem="B6i-bD-zi5" firstAttribute="centerY" secondItem="bSE-64-nmN" secondAttribute="centerY" id="lac-kn-WcN"/>
+                            <constraint firstItem="Saj-6q-NS8" firstAttribute="top" secondItem="d2b-9O-aSH" secondAttribute="bottom" constant="8" id="lsI-fR-ZzE"/>
                             <constraint firstItem="bSE-64-nmN" firstAttribute="bottom" secondItem="OBe-d4-59V" secondAttribute="bottomMargin" id="tgy-yn-Fjj"/>
+                            <constraint firstItem="OBe-d4-59V" firstAttribute="centerX" secondItem="d2b-9O-aSH" secondAttribute="centerX" id="zjI-yR-jrC"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -135,6 +166,9 @@
                                 <exclude reference="tgy-yn-Fjj"/>
                             </mask>
                         </variation>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="uJb-qb-94S" appends="YES" id="gaW-tg-qu0"/>
+                        </connections>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" title="Post" id="yNS-Y4-9wi">
@@ -151,6 +185,7 @@
                         <outlet property="characterCountLabel" destination="tyO-1X-dJL" id="2ad-CN-q1b"/>
                         <outlet property="imageView" destination="5B0-6n-15t" id="0Kx-az-u2o"/>
                         <outlet property="postTextView" destination="OBe-d4-59V" id="2XH-zf-XTP"/>
+                        <outlet property="previewTextView" destination="Saj-6q-NS8" id="yBh-p8-Qmt"/>
                         <outlet property="sendActivityIndicator" destination="qyJ-MF-Fbm" id="Keo-od-ZKY"/>
                         <outlet property="statusLabel" destination="MQc-cx-lU3" id="KKC-7Z-20f"/>
                         <outlet property="textViewBottomConstraint" destination="E16-d0-Yb5" id="iys-7m-bOB"/>
@@ -163,11 +198,16 @@
                         <action selector="dismissKeyboard:" destination="vXZ-lx-hvc" id="gNK-9w-FH8"/>
                     </connections>
                 </swipeGestureRecognizer>
-                <swipeGestureRecognizer direction="up" id="zXW-v8-o9K">
+                <swipeGestureRecognizer direction="up" id="uJb-qb-94S">
                     <connections>
-                        <action selector="post:" destination="vXZ-lx-hvc" id="qtr-eu-oQd"/>
+                        <action selector="showKeyboard:" destination="vXZ-lx-hvc" id="hIL-Zk-FN6"/>
                     </connections>
                 </swipeGestureRecognizer>
+                <panGestureRecognizer delaysTouchesBegan="YES" minimumNumberOfTouches="1" id="gkG-XY-DsC">
+                    <connections>
+                        <action selector="moveCurser:" destination="vXZ-lx-hvc" id="XXd-BN-AQQ"/>
+                    </connections>
+                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2380" y="102"/>
         </scene>

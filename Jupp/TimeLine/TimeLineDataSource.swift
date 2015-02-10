@@ -26,7 +26,7 @@ class TimeLineDataSource : NSObject, TableViewProtocol, UIGestureRecognizerDeleg
 //        panGestureRecogniser = UIPanGestureRecognizer(target: self, action: "panCell:")
 //    }
     
-    func numberOfSectionsInTableView(tableView: UITableView!) -> Int {
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1;
     }
     
@@ -35,7 +35,7 @@ class TimeLineDataSource : NSObject, TableViewProtocol, UIGestureRecognizerDeleg
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(PostCellIdentifier, forIndexPath: indexPath) as PostCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(PostCellIdentifier, forIndexPath: indexPath) as! PostCell
         
         let post = postsArray[indexPath.row]
         
@@ -94,7 +94,7 @@ class TimeLineDataSource : NSObject, TableViewProtocol, UIGestureRecognizerDeleg
         var contentOffsetY: CGFloat = 0
 //        var contentHeight: CGFloat = 0
         if tableView!.numberOfRowsInSection(0) > 0 {
-            let cell = tableView!.visibleCells()[0] as PostCell
+            let cell = tableView!.visibleCells()[0] as! PostCell
             oldYOffsetOfCell = cell.frame.origin.y
             indexPath = tableView!.indexPathsForVisibleRows()![0] as? NSIndexPath
 //            contentHeight = tableView!.contentSize.height
@@ -159,8 +159,8 @@ class TimeLineDataSource : NSObject, TableViewProtocol, UIGestureRecognizerDeleg
         }
     }
     
-    func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer!) -> Bool {
-        let translation = (gestureRecognizer as UIPanGestureRecognizer).translationInView(gestureRecognizer.view!.superview!)
+    func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
+        let translation = (gestureRecognizer as! UIPanGestureRecognizer).translationInView(gestureRecognizer.view!.superview!)
         return abs(translation.x) > abs(translation.y)
     }
     
@@ -170,7 +170,7 @@ class TimeLineDataSource : NSObject, TableViewProtocol, UIGestureRecognizerDeleg
         let point = contentView.convertPoint(contentView.center, toView: tableView)
         let indexPath = tableView?.indexPathForRowAtPoint(point)
         
-        let cell = tableView?.cellForRowAtIndexPath(indexPath!) as PostCell
+        let cell = tableView?.cellForRowAtIndexPath(indexPath!) as! PostCell
 
         let translation = gestureRecogniser.translationInView(gestureRecogniser.view!.superview!)
 

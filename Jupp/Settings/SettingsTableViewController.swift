@@ -61,9 +61,9 @@ class SettingsTableViewController: UITableViewController {
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("twitterAccountCell", forIndexPath: indexPath) as UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("twitterAccountCell", forIndexPath: indexPath) as! UITableViewCell
 
-        let account = accounts![indexPath.row] as ACAccount
+        let account = accounts![indexPath.row] as! ACAccount
         cell.textLabel!.text = account.username
         
         if activeAccountId == account.identifier {
@@ -76,7 +76,7 @@ class SettingsTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let account = accounts![indexPath.row] as ACAccount
+        let account = accounts![indexPath.row] as! ACAccount
         if activeAccountId == account.identifier {
             activeAccountId = nil
         } else {

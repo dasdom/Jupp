@@ -45,8 +45,8 @@ class LoginViewController: UIViewController {
         let clientId = ClientData.clientId
         let passwordGrantSecret = ClientData.passwordGrantSecret
         
-        let username: String = usernameTextField.text.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
-        let password: String = passwordTextField.text.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
+        let username: String = usernameTextField.text.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLUserAllowedCharacterSet())!
+        let password: String = passwordTextField.text.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.alphanumericCharacterSet())!
         
         var postString = "client_id=\(clientId)&password_grant_secret=\(passwordGrantSecret)&grant_type=password&username=\(username)&password=\(password)&scope=write_post"
         
@@ -63,7 +63,7 @@ class LoginViewController: UIViewController {
 //                    self.responseTextView.text = "data task"
 //                })
             
-            let responseDict  = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as [String:AnyObject]
+            let responseDict  = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as! [String:AnyObject]
             println("responseDict: \(responseDict)")
 //            dispatch_async(dispatch_get_main_queue(), { () -> Void in
 //                self.responseTextView.text = "\(responseDict)"
@@ -71,7 +71,7 @@ class LoginViewController: UIViewController {
 
             if let error = responseDict["error"] as? NSString {
                 let errorText = responseDict["error_text"] as? NSString
-                let alertController = UIAlertController(title: "Error", message: errorText, preferredStyle: .Alert)
+                let alertController = UIAlertController(title: "Error", message: (errorText as! String), preferredStyle: .Alert)
                 let okAction = UIAlertAction(title: "OK", style: .Default, handler: { (action) in
                     self.usernameTextField.text = ""
                     self.passwordTextField.text = ""

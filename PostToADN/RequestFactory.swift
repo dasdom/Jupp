@@ -33,7 +33,7 @@ public class RequestFactory {
             alteredPostTest += "\n"
             alteredPostTest += "photos.app.net/{post_id}/1"
             
-            let imageAnnotationDict: [String:String] = ["file_id": imageDict["id"] as String, "file_token": imageDict["file_token"] as String, "format": "oembed"]
+            let imageAnnotationDict: [String:String] = ["file_id": imageDict["id"] as! String, "file_token": imageDict["file_token"] as! String, "format": "oembed"]
             let annotationValueDict: [String:AnyObject] = ["+net.app.core.file": imageAnnotationDict]
             let annotationDict: [String:AnyObject] = ["type": "net.app.core.oembed", "value" : annotationValueDict]
             postDictionary["annotations"] = [annotationDict]

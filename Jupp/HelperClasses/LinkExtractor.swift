@@ -30,16 +30,16 @@ public class LinkExtractor {
             
             var string: NSString? = nil
             scannerDidScan = scanner.scanUpToString("[", intoString: &string)
-            stringToScan = string!
+            stringToScan = string! as! String
             var location = scanner.scanLocation-1
             
             var link: String? = nil
             var range: NSRange? = nil
             scannerDidScan = scanner.scanUpToString("](", intoString: &string)
             if scannerDidScan {
-                link = string!
-                range = NSRange(location: location+1, length: link!.lengthOfBytesUsingEncoding(NSUTF8StringEncoding))
-                stringToScan += string!
+                link = (string! as! String)
+                range = NSRange(location: location, length: link!.lengthOfBytesUsingEncoding(NSUTF8StringEncoding))
+                stringToScan += string! as! String
             } else {
                 continue
             }
@@ -47,14 +47,20 @@ public class LinkExtractor {
             var urlString: String? = nil
             scannerDidScan = scanner.scanUpToString(")", intoString: &string)
             if scannerDidScan {
-                urlString = string
+                urlString = (string as! String)
             } else {
                 continue
             }
+//            println("currentlyScannedString count: \(countElements(currentlyScannedString!))")
             
-            let index = advance(currentlyScannedString!.startIndex, scanner.scanLocation+1)
+            var endIndex = scanner.scanLocation
+            if count(currentlyScannedString!) > scanner.scanLocation {
+                endIndex++
+            }
+            let index = advance(currentlyScannedString!.startIndex, endIndex)
             
             var remainingString: String? = currentlyScannedString!.substringFromIndex(index)
+//            println("remainingString: \(remainingString)")
             stringToScan += remainingString!
             
             println("stringToScan \(stringToScan)")
@@ -66,9 +72,10 @@ public class LinkExtractor {
             linkArray.append(linkDictionary)
         } while scannerDidScan
         
-        println("linkArray \(linkArray)")
+        let stringToReturn = stringToScan.substringFromIndex(advance(stringToScan.startIndex, 1))
+//        println("string: \(stringToReturn) linkArray \(linkArray)")
         
         // Remove the space at the beginning.
-        return (stringToScan.substringFromIndex(advance(stringToScan.startIndex, 1)), linkArray)
+        return (stringToReturn, linkArray)
     }
 }

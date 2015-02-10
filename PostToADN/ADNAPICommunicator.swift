@@ -31,7 +31,7 @@ public class ADNAPICommunicator: NSObject, NSURLSessionDelegate, NSURLSessionDat
             let dataString = NSString(data: data, encoding: NSUTF8StringEncoding)
             println("uploadImage dataString \(dataString)")
             
-            let dictionary = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as [String: AnyObject]
+            let dictionary = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as! [String: AnyObject]
             completion(dictionary)
         })
         sessionTask.resume()

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class User : NSCoding {
+@objc class User : NSCoding {
     var avatarURL = NSURL()
     var id = 0
     var name = ""
@@ -26,13 +26,13 @@ class User : NSCoding {
     }
     
     required init(coder aDecoder: NSCoder) {
-        avatarURL = aDecoder.decodeObjectForKey(Constants.avatarURLKey) as NSURL
+        avatarURL = aDecoder.decodeObjectForKey(Constants.avatarURLKey) as! NSURL
         id = aDecoder.decodeIntegerForKey(Constants.idKey)
-        name = aDecoder.decodeObjectForKey(Constants.nameKey) as String
-        username = aDecoder.decodeObjectForKey(Constants.usernameKey) as String
+        name = aDecoder.decodeObjectForKey(Constants.nameKey) as! String
+        username = aDecoder.decodeObjectForKey(Constants.usernameKey) as! String
     }
     
-    func encodeWithCoder(aCoder: NSCoder) {
+    @objc func encodeWithCoder(aCoder: NSCoder) {
         aCoder.encodeObject(avatarURL, forKey: Constants.avatarURLKey)
         aCoder.encodeInteger(id, forKey: Constants.idKey)
         aCoder.encodeObject(name, forKey: Constants.nameKey)

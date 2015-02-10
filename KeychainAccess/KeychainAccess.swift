@@ -12,32 +12,32 @@ public class KeychainAccess {
     
     private class func secClassGenericPassword() -> String {
 //        return kSecClassGenericPassword.takeRetainedValue() as String
-        return NSString(format: kSecClassGenericPassword)
+        return NSString(format: kSecClassGenericPassword) as! String
     }
     
     private class func secClass() -> String {
 //        return kSecClass.takeRetainedValue() as String
-        return NSString(format: kSecClass)
+        return NSString(format: kSecClass) as! String
     }
     
     private class func secAttrService() -> String {
 //        return kSecAttrService.takeRetainedValue() as String
-        return NSString(format: kSecAttrService)
+        return NSString(format: kSecAttrService) as! String
     }
     
     private class func secAttrAccount() -> String {
 //        return kSecAttrAccount.takeRetainedValue() as String
-        return NSString(format: kSecAttrAccount)
+        return NSString(format: kSecAttrAccount) as! String
     }
     
     private class func secValueData() -> String {
 //        return kSecValueData.takeRetainedValue() as String
-        return NSString(format: kSecValueData)
+        return NSString(format: kSecValueData) as! String
     }
     
     private class func secReturnData() -> String {
 //        return kSecReturnData.takeRetainedValue() as String
-        return NSString(format: kSecReturnData)
+        return NSString(format: kSecReturnData) as! String
     }
     
     public class func setPassword(password: String, account: String, service: String = "kDDHDefaultService") {
@@ -76,7 +76,7 @@ public class KeychainAccess {
             return nil
         }
 //        if let dataTypeRef = dataTypeRef {
-            let retrievedData : NSData = dataTypeRef!.takeRetainedValue() as CFDataRef as NSData
+            let retrievedData : NSData = dataTypeRef!.takeRetainedValue() as! CFDataRef as NSData
         
 //        if let retrievedData = retrievedData {
             let password = NSString(data: retrievedData, encoding: NSUTF8StringEncoding)

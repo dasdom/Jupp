@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Post : NSCoding {
+@objc class Post : NSCoding {
     var canonicalURL    = NSURL()
     var id              = 0
     var text            = ""
@@ -34,17 +34,17 @@ class Post : NSCoding {
     }
     
     required init(coder aDecoder: NSCoder) {
-        canonicalURL = aDecoder.decodeObjectForKey(Constants.canonicalURLKey) as NSURL
+        canonicalURL = aDecoder.decodeObjectForKey(Constants.canonicalURLKey) as! NSURL
         id = aDecoder.decodeIntegerForKey(Constants.idKey)
-        text = aDecoder.decodeObjectForKey(Constants.textKey) as String
+        text = aDecoder.decodeObjectForKey(Constants.textKey) as! String
         threadId = aDecoder.decodeIntegerForKey(Constants.threadIdKey)
-        user = aDecoder.decodeObjectForKey(Constants.userKey) as User
-        mentions = aDecoder.decodeObjectForKey(Constants.mentionsKey) as [Mention]
-        links = aDecoder.decodeObjectForKey(Constants.linksKey) as [Link]
-        attributedText = aDecoder.decodeObjectForKey(Constants.attributedTextKey) as NSAttributedString
+        user = aDecoder.decodeObjectForKey(Constants.userKey) as! User
+        mentions = aDecoder.decodeObjectForKey(Constants.mentionsKey) as! [Mention]
+        links = aDecoder.decodeObjectForKey(Constants.linksKey) as! [Link]
+        attributedText = aDecoder.decodeObjectForKey(Constants.attributedTextKey) as! NSAttributedString
     }
     
-    func encodeWithCoder(aCoder: NSCoder) {
+    @objc func encodeWithCoder(aCoder: NSCoder) {
         aCoder.encodeObject(canonicalURL, forKey: Constants.canonicalURLKey)
         aCoder.encodeInteger(id, forKey: Constants.idKey)
         aCoder.encodeObject(text, forKey: Constants.textKey)

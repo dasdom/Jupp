@@ -12,7 +12,7 @@ class PostCell: UITableViewCell {
     private var imageLoadingQueue = NSOperationQueue()
     
     private let hostView: UIView
-    let hostViewCenterXConstraint: NSLayoutConstraint?
+    var hostViewCenterXConstraint: NSLayoutConstraint?
     let panGestureRecogniser: UIPanGestureRecognizer
     let usernameLabel: UILabel
     let postTextView: UITextView

@@ -24,10 +24,14 @@ class PostViewController: UIViewController, UITextViewDelegate, UIImagePickerCon
     @IBOutlet weak var imageView: UIImageView!
     
     @IBOutlet weak var statusLabel: UILabel!
+    @IBOutlet weak var previewTextView: UITextView!
     
-    var isPosting = false
+    internal var isPosting = false
     
     var replyToPost: Post?
+    
+    internal var startRange = NSMakeRange(0, 0)
+    internal let cursorVelocity = CGFloat(1.0/8.0)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,6 +61,7 @@ class PostViewController: UIViewController, UITextViewDelegate, UIImagePickerCon
             navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: "cancel:")
         }
         
+        postTextView?.becomeFirstResponder()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -72,7 +77,7 @@ class PostViewController: UIViewController, UITextViewDelegate, UIImagePickerCon
             return
         }
         
-        postTextView?.becomeFirstResponder()
+//        postTextView?.becomeFirstResponder()
         updateCharacterCount()
         
         accountStore = ACAccountStore()
@@ -152,7 +157,6 @@ class PostViewController: UIViewController, UITextViewDelegate, UIImagePickerCon
             dispatch_async(dispatch_get_main_queue(), {
                 self.sendActivityIndicator.stopAnimating()
                 
-                
                 if self.replyToPost != nil {
                     self.dismissViewControllerAnimated(true, completion: nil)
                     self.isPosting = false
@@ -184,8 +188,15 @@ class PostViewController: UIViewController, UITextViewDelegate, UIImagePickerCon
         }
     }
     
-    func textViewDidChange(textView: UITextView!) {
+    func textViewDidChange(textView: UITextView) {
         updateCharacterCount()
+        
+        let linkExtractor = LinkExtractor()
+        let (postText, linksArray) = linkExtractor.extractLinks(postTextView.text)
+
+        var (tweetOne, tweetTwo) = tweetsFromText(postText, linksArray: linksArray)
+
+        previewTextView.text = tweetOne + "\n\n" + tweetTwo
     }
     
     private func updateCharacterCount() {
@@ -202,85 +213,104 @@ class PostViewController: UIViewController, UITextViewDelegate, UIImagePickerCon
     
     //MARK: Gesture recognizer actions
     @IBAction func dismissKeyboard(sender: UISwipeGestureRecognizer) {
-        postTextView?.resignFirstResponder()
-        if self.replyToPost != nil {
-            self.dismissViewControllerAnimated(true, completion: nil)
+        if let accountIdentifier = NSUserDefaults.standardUserDefaults().stringForKey(kActiveAccountIdKey) {
+            postTextView?.resignFirstResponder()
+            if self.replyToPost != nil {
+                self.dismissViewControllerAnimated(true, completion: nil)
+            }
         }
+    }
+    
+    @IBAction func showKeyboard(sender: UISwipeGestureRecognizer) {
+        postTextView.becomeFirstResponder()
+    }
+    
+    
+    
+    @IBAction func moveCurser(sender: UIPanGestureRecognizer) {
+        if sender.state == .Began {
+            startRange = postTextView.selectedRange
+        }
+        
+        let translation = sender.translationInView(postTextView)
+        let cursorLocation = max(startRange.location+Int(translation.x*cursorVelocity), 0)
+        
+        let selectedRange = NSMakeRange(cursorLocation, 0)
+        postTextView.selectedRange = selectedRange
     }
     
     //MARK: Twitter
     func tweetText(text: String, linksArray: [[String:String]], accountIdentifier: String, image: UIImage?, completion: () -> ()) {
-        var postTextPartOne = text
-        var postTextPartTwo = ""
-
-        var addToFirstPart = true
-        if text.utf16Count > 140 {
-//            let index = advance(postTextPartOne.startIndex, 130)
-//            postTextPartTwo = "..." + postTextPartOne.substringFromIndex(index) + "\n2/2"
-//            postTextPartOne = postTextPartOne.substringToIndex(index) + "...\n1/2"
-            let components = text.componentsSeparatedByString(" ")
-            
-            postTextPartOne = ""
-            for word in components {
-                if postTextPartOne.utf16Count + word.utf16Count > 130 {
-                    if word.isURL() && postTextPartOne.utf16Count + 10 < 130 {
-                        addToFirstPart = true
-                    } else {
-                        addToFirstPart = false
-                    }
-                }
-                if addToFirstPart {
-                    postTextPartOne += " \(word)"
-                } else {
-                    postTextPartTwo += " \(word)"
-                }
-            }
-        }
+//        var tweetOne = text
+//        var tweetTwo = ""
+//
+//        var addToFirstPart = true
+//        if text.utf16Count > 140 {
+//            let components = text.componentsSeparatedByString(" ")
+//            
+//            tweetOne = ""
+//            for word in components {
+//                if tweetOne.utf16Count + word.utf16Count > 130 {
+//                    if word.isURL() && tweetOne.utf16Count + 10 < 130 {
+//                        addToFirstPart = true
+//                    } else {
+//                        addToFirstPart = false
+//                    }
+//                }
+//                if addToFirstPart {
+//                    tweetOne += " \(word)"
+//                } else {
+//                    tweetTwo += " \(word)"
+//                }
+//            }
+//        }
         
-        if linksArray.count > 0 {
-            let linkString = linksArray.first!["url"]!
-            if addToFirstPart {
-                if postTextPartOne.utf16Count < 130 {
-                    
-                    postTextPartOne += " \(linkString)"
-                } else {
-                    dispatch_async(dispatch_get_main_queue(), {
-                        
-                        let alertMessage = "Tweeting was not possible because there would be two tweets but the second one would only have a link in it."
-                        let alert = UIAlertController(title: "There was an error", message: alertMessage, preferredStyle: .Alert)
-                        let okAction = UIAlertAction(title: "OK", style: .Default, handler: { (action) -> Void in
-                            println("OK")
-                        })
-                        alert.addAction(okAction)
-                        
-                        self.presentViewController(alert, animated: true, completion: nil)
-                        
-                        completion()
-                    })
-                    return
-                }
-            } else {
-                postTextPartTwo += " \(linkString)"
-            }
-        }
+        var (tweetOne, tweetTwo) = tweetsFromText(text, linksArray: linksArray)
         
-        if postTextPartTwo != "" {
-            if postTextPartOne.utf16Count < 134 {
-                postTextPartOne = postTextPartOne + " ...\n1/2"
-            }
-            postTextPartTwo = "... " + postTextPartTwo + "\n2/2"
-
-        }
+//        if linksArray.count > 0 {
+//            let linkString = linksArray.first!["url"]!
+//            if addToFirstPart {
+//                if tweetOne.utf16Count < 130 {
+//                    
+//                    tweetOne += " \(linkString)"
+//                } else {
+//                    dispatch_async(dispatch_get_main_queue(), {
+//                        
+//                        let alertMessage = "Tweeting was not possible because there would be two tweets but the second one would only have a link in it."
+//                        let alert = UIAlertController(title: "There was an error", message: alertMessage, preferredStyle: .Alert)
+//                        let okAction = UIAlertAction(title: "OK", style: .Default, handler: { (action) -> Void in
+//                            println("OK")
+//                        })
+//                        alert.addAction(okAction)
+//                        
+//                        self.presentViewController(alert, animated: true, completion: nil)
+//                        
+//                        completion()
+//                    })
+//                    return
+//                }
+//            } else {
+//                tweetTwo += " \(linkString)"
+//            }
+//        }
+//        
+//        if tweetTwo != "" {
+//            if tweetOne.utf16Count < 134 {
+//                tweetOne = tweetOne + " ...\n1/2"
+//            }
+//            tweetTwo = "... " + tweetTwo + "\n2/2"
+//
+//        }
         
-        println("postTextPartOne: \(postTextPartOne)")
-        println("postTextPartTwo: \(postTextPartTwo)")
+        println("postTextPartOne: \(tweetOne)")
+        println("postTextPartTwo: \(tweetTwo)")
         
         var urlString = "https://api.twitter.com/1.1/statuses/update.json"
         if imageView.image != nil {
             urlString = "https://api.twitter.com/1.1/statuses/update_with_media.json"
         }
         
-        let parameters = ["status" : postTextPartOne]
+        let parameters = ["status" : tweetOne]
         let tweetRequest = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: .POST, URL: NSURL(string: urlString), parameters: parameters)
         
         if imageView.image != nil {
@@ -314,8 +344,8 @@ class PostViewController: UIViewController, UITextViewDelegate, UIImagePickerCon
                 return
             }
             
-            if postTextPartTwo != "" {
-                let parameters = ["status" : postTextPartTwo]
+            if tweetTwo != "" {
+                let parameters = ["status" : tweetTwo]
                 let tweetRequest = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: .POST, URL: NSURL(string: "https://api.twitter.com/1.1/statuses/update.json"), parameters: parameters)
                 tweetRequest.account = account
                 tweetRequest.performRequestWithHandler { (tweetData, tweetResponse, tweetError) in
@@ -324,7 +354,7 @@ class PostViewController: UIViewController, UITextViewDelegate, UIImagePickerCon
                     
                     dispatch_async(dispatch_get_main_queue(), {
                         
-                        let alertMessage = "Tweet 1: \(postTextPartOne)" + "\n\n" + "Tweet 2: \(postTextPartTwo)"
+                        let alertMessage = "Tweet 1: \(tweetOne)" + "\n\n" + "Tweet 2: \(tweetTwo)"
                         let alert = UIAlertController(title: "You tweeted two tweets:", message: alertMessage, preferredStyle: .Alert)
                         let okAction = UIAlertAction(title: "OK", style: .Default, handler: { (action) -> Void in
                             println("OK")
@@ -342,6 +372,69 @@ class PostViewController: UIViewController, UITextViewDelegate, UIImagePickerCon
                 })
             }
         }
+    }
+    
+    func tweetsFromText(text: String, linksArray: [[String:String]]) -> (tweetOne: String, tweetTwo: String) {
+        var tweetOne = text
+        var tweetTwo = ""
+        
+        var addToFirstPart = true
+        if text.utf16Count > 140 {
+            let components = text.componentsSeparatedByString(" ")
+            
+            tweetOne = ""
+            for word in components {
+                if tweetOne.utf16Count + word.utf16Count > 130 {
+                    if word.isURL() && tweetOne.utf16Count + 10 < 130 {
+                        addToFirstPart = true
+                    } else {
+                        addToFirstPart = false
+                    }
+                }
+                if addToFirstPart {
+                    tweetOne += " \(word)"
+                } else {
+                    tweetTwo += " \(word)"
+                }
+            }
+        }
+        
+        if linksArray.count > 0 {
+            let linkString = linksArray.first!["url"]!
+            if addToFirstPart {
+//                if tweetOne.utf16Count < 130 {
+                
+                    tweetOne += " \(linkString)"
+//                } else {
+//                    dispatch_async(dispatch_get_main_queue(), {
+//                        
+//                        let alertMessage = "Tweeting was not possible because there would be two tweets but the second one would only have a link in it."
+//                        let alert = UIAlertController(title: "There was an error", message: alertMessage, preferredStyle: .Alert)
+//                        let okAction = UIAlertAction(title: "OK", style: .Default, handler: { (action) -> Void in
+//                            println("OK")
+//                        })
+//                        alert.addAction(okAction)
+//                        
+//                        self.presentViewController(alert, animated: true, completion: nil)
+//                        
+//                        completion()
+//                    })
+//                    return
+//                }
+            } else {
+                tweetTwo += " \(linkString)"
+            }
+        }
+        
+        if tweetTwo != "" {
+            if tweetOne.utf16Count < 134 {
+                tweetOne = tweetOne + " ...\n1/2"
+            }
+            tweetTwo = "... " + tweetTwo + "\n2/2"
+            
+        }
+        
+        return (tweetOne, tweetTwo)
     }
     
     private func resetTextView() {
@@ -377,8 +470,16 @@ class PostViewController: UIViewController, UITextViewDelegate, UIImagePickerCon
         presentViewController(imagePickerViewController, animated: true, completion: nil)
     }
     
+    @IBAction func toggleKeyboard(sender: UIButton) {
+        if postTextView.isFirstResponder() {
+            postTextView.resignFirstResponder()
+        } else {
+            postTextView.becomeFirstResponder()
+        }
+    }
+    
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
-        let image = info[UIImagePickerControllerOriginalImage] as UIImage
+        let image = info[UIImagePickerControllerOriginalImage] as! UIImage
         imageView.image = image
         
         picker.dismissViewControllerAnimated(true, completion: nil)

@@ -49,8 +49,8 @@ class TimeLineViewController: UITableViewController {
     }
 
     func replyToPost(post: Post) {
-        let navigationController = UIStoryboard(name: "Post", bundle: nil).instantiateInitialViewController() as UINavigationController
-        let postViewController = navigationController.viewControllers.first as PostViewController
+        let navigationController = UIStoryboard(name: "Post", bundle: nil).instantiateInitialViewController() as! UINavigationController
+        let postViewController = navigationController.viewControllers.first as! PostViewController
         postViewController.replyToPost = post
         presentViewController(navigationController, animated: true, completion: nil)
     }

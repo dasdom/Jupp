@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Mention : NSCoding {
+@objc class Mention : NSCoding {
     var id = 0
     var length = 0
     var position = 0
@@ -31,11 +31,11 @@ class Mention : NSCoding {
         id = aDecoder.decodeIntegerForKey(Constants.idKey)
         length = aDecoder.decodeIntegerForKey(Constants.lengthKey)
         position = aDecoder.decodeIntegerForKey(Constants.positionKey)
-        name = aDecoder.decodeObjectForKey(Constants.nameKey) as String
+        name = aDecoder.decodeObjectForKey(Constants.nameKey) as! String
         isLeading = aDecoder.decodeBoolForKey(Constants.isLeadingKey)
     }
     
-    func encodeWithCoder(aCoder: NSCoder) {
+    @objc func encodeWithCoder(aCoder: NSCoder) {
         aCoder.encodeInteger(id, forKey: Constants.idKey)
         aCoder.encodeInteger(length, forKey: Constants.lengthKey)
         aCoder.encodeInteger(position, forKey: Constants.positionKey)

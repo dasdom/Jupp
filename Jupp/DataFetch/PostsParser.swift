@@ -33,11 +33,11 @@ class PostsParser {
             return (nil, nil, jsonError)
         }
 
-        let metaDict = dictionary!["meta"] as Dictionary<String, AnyObject>
+        let metaDict = dictionary!["meta"] as! Dictionary<String, AnyObject>
         println("metaDict: \(metaDict)")
         let meta = MetaBuilder().metaFromDictionary(metaDict)
         if let errorMessage = metaDict["error_message"] as? NSString {
-            var code = metaDict["code"] as NSNumber
+            var code = metaDict["code"] as! NSNumber
             var error = NSError(domain: ADNFetchError, code: code.integerValue, userInfo: [NSLocalizedDescriptionKey : errorMessage])
             return (nil, nil, error)
         }
