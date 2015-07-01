@@ -6,9 +6,5 @@
 	<array>
 		<string>group.de.dasdom.Jupp</string>
 	</array>
-	<key>keychain-access-groups</key>
-	<array>
-		<string>$(AppIdentifierPrefix)de.dasdom.Jupp</string>
-	</array>
 </dict>
 </plist>

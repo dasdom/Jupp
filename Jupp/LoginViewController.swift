@@ -32,7 +32,7 @@ class LoginViewController: UIViewController {
     @IBAction func login(sender: AnyObject) {
         passwordTextField.resignFirstResponder()
         
-        if usernameTextField.text.utf16Count < 1 || passwordTextField.text.utf16Count < 1 {
+        if count(usernameTextField.text.utf16) < 1 || count(passwordTextField.text.utf16) < 1 {
             let alertController = UIAlertController(title: NSLocalizedString("Error", comment: "Error message title"), message: NSLocalizedString("Please put in your username, password and touch log in.", comment: "Empty password or username field error message"), preferredStyle: .Alert)
             let okAction = UIAlertAction(title: NSLocalizedString("OK", comment: "Ok button title"), style: .Default, handler: nil)
             alertController.addAction(okAction)

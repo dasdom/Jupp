@@ -103,9 +103,9 @@ class ShareViewController: SLComposeServiceViewController, NSURLSessionDelegate 
     }
     
     override func isContentValid() -> Bool {
-        charactersRemaining = 256 - contentText.utf16Count
+        charactersRemaining = 256 - count(contentText.utf16)
         
-        return contentText.utf16Count < 256
+        return count(contentText.utf16) < 256
     }
 
     override func didSelectPost() {
@@ -120,7 +120,7 @@ class ShareViewController: SLComposeServiceViewController, NSURLSessionDelegate 
             println("\(urlToShare.absoluteString)")
             
             var linkLocation = 0
-            var linkLength = self.contentText.utf16Count
+            var linkLength = count(contentText.utf16)
             var postString = String()
             var index = 0
             for char in self.contentText {
