@@ -19,7 +19,7 @@ public class ImageService: NSObject {
         imageDirectoryURL = imageDirectoryURL.URLByAppendingPathComponent(name)
         imageDirectoryURL = imageDirectoryURL.URLByAppendingPathExtension("jpg")
         let imageData = UIImageJPEGRepresentation(image, 0.3)
-        let saved = imageData.writeToFile(imageDirectoryURL.path!, atomically: true)
+        _ = imageData!.writeToFile(imageDirectoryURL.path!, atomically: true)
         return imageDirectoryURL
     }
     
@@ -29,9 +29,12 @@ public class ImageService: NSObject {
     
     private func urlForDirectoryWithName(name: String) -> NSURL! {
         if let containerURL = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier("group.de.dasdom.Jupp") {
-            var contairURLWithName = containerURL.URLByAppendingPathComponent(name)
+            let contairURLWithName = containerURL.URLByAppendingPathComponent(name)
             if !NSFileManager.defaultManager().fileExistsAtPath(contairURLWithName.path!) {
-                NSFileManager.defaultManager().createDirectoryAtPath(containerURL.path!, withIntermediateDirectories: false, attributes: nil, error: nil)
+                do {
+                    try NSFileManager.defaultManager().createDirectoryAtPath(containerURL.path!, withIntermediateDirectories: false, attributes: nil)
+                } catch _ {
+                }
             }
             
             return containerURL

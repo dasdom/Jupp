@@ -62,7 +62,7 @@ class ShareViewController: SLComposeServiceViewController, NSURLSessionDelegate 
         let items = extensionContext?.inputItems
         var itemProvider: NSItemProvider?
         
-        println("items: \(items)")
+        print("items: \(items)")
         
         if items != nil && items!.isEmpty == false {
             let item = items![0] as! NSExtensionItem
@@ -87,7 +87,7 @@ class ShareViewController: SLComposeServiceViewController, NSURLSessionDelegate 
                     } else if itemProvider?.hasItemConformingToTypeIdentifier(imageType) == true {
                         itemProvider?.loadItemForTypeIdentifier(imageType, options: nil) { (item, error) -> Void in
                             if error == nil {
-                                println("item: \(item)")
+                                print("item: \(item)")
                                 if let url = item as? NSURL {
                                     if let imageData = NSData(contentsOfURL: url) {
                                         self.imageToShare = UIImage(data: imageData)
@@ -103,27 +103,28 @@ class ShareViewController: SLComposeServiceViewController, NSURLSessionDelegate 
     }
     
     override func isContentValid() -> Bool {
-        charactersRemaining = 256 - count(contentText.utf16)
+        charactersRemaining = 256 - contentText.utf16.count
         
-        return count(contentText.utf16) < 256
+        return contentText.utf16.count < 256
     }
 
     override func didSelectPost() {
        
         let accessToken = KeychainAccess.passwordForAccount("AccessToken")
         if accessToken == nil {
+            print("accessToken is nil")
             return
         }
         
         if let urlToShare = urlToShare {
             
-            println("\(urlToShare.absoluteString)")
+            print("\(urlToShare.absoluteString)")
             
             var linkLocation = 0
-            var linkLength = count(contentText.utf16)
+            var linkLength = contentText.utf16.count
             var postString = String()
             var index = 0
-            for char in self.contentText {
+            for char in self.contentText.characters {
                 if char == "[" {
                     linkLocation = index
                 } else if char == "]" {
@@ -134,17 +135,23 @@ class ShareViewController: SLComposeServiceViewController, NSURLSessionDelegate 
                 ++index
             }
             
-            let linkDict = ["url" : urlToShare.absoluteString!, "pos": "\(linkLocation)", "len": "\(linkLength)"]
+            let linkDict = ["url" : urlToShare.absoluteString, "pos": "\(linkLocation)", "len": "\(linkLength)"]
             let linksArray: [[String:String]] = [linkDict]
             
-            let urlSessionConfiguration = NSURLSessionConfiguration.defaultSessionConfiguration()
-            self.urlSession = NSURLSession(configuration: urlSessionConfiguration, delegate: self, delegateQueue: nil)
+//            let urlSessionConfiguration = NSURLSessionConfiguration.defaultSessionConfiguration()
+//            self.urlSession = NSURLSession(configuration: urlSessionConfiguration, delegate: self, delegateQueue: nil)
+            let session = NSURLSession.sharedSession()
             
-            let request = RequestFactory()
-            let urlSessionTask = self.urlSession!.dataTaskWithRequest(RequestFactory.postRequestFromPostText(postString, linksArray: linksArray, accessToken: accessToken!), completionHandler: { (data, response, error) -> Void in
-                println("response: \(response)")
-                let responseString = NSString(data: data, encoding: NSUTF8StringEncoding)
-                println("responseString: \(responseString)")
+//            let request = RequestFactory()
+//            let urlSessionTask = self.urlSession!.dataTaskWithRequest(RequestFactory.postRequestFromPostText(postString, linksArray: linksArray, accessToken: accessToken!), completionHandler: { (data, response, error) -> Void in
+            let request = RequestFactory.postRequestFromPostText(postString, linksArray: linksArray, accessToken: accessToken!)
+            print(request)
+            let urlSessionTask = session.dataTaskWithRequest(request, completionHandler: { (data, response, error) -> Void in
+                print("response: \(response)")
+                if let data = data {
+                    let responseString = NSString(data: data, encoding: NSUTF8StringEncoding)
+                    print("responseString: \(responseString)")
+                }
                 self.extensionContext!.completeRequestReturningItems(nil, completionHandler: nil)
             })
             
@@ -152,7 +159,7 @@ class ShareViewController: SLComposeServiceViewController, NSURLSessionDelegate 
         } else if let imageToShare = imageToShare {
             activityIndicatorView.startAnimating()
             adnApiCommunicator.postText(contentText, linksArray: [], accessToken: accessToken!, image: imageToShare) {
-                println("finished")
+                print("finished")
                 self.extensionContext!.completeRequestReturningItems(nil, completionHandler: nil)
             }
             
@@ -162,7 +169,7 @@ class ShareViewController: SLComposeServiceViewController, NSURLSessionDelegate 
 
     override func configurationItems() -> [AnyObject]! {
         // To add configuration options via table cells at the bottom of the sheet, return an array of SLComposeSheetConfigurationItem here.
-        return NSArray() as! [AnyObject]
+        return NSArray() as [AnyObject]
     }
 
 //    func postRequestFromPostText(postText: String, linksArray: [[String:String]], accessToken:String) -> NSURLRequest {

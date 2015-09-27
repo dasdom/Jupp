@@ -36,36 +36,36 @@ public class PostService: NSObject, NSURLSessionDataDelegate, NSURLSessionTaskDe
     }
 
     public func URLSession(session: NSURLSession, didBecomeInvalidWithError error: NSError?) {
-        println("didBecomeInvalidWithError \(error)")
+        print("didBecomeInvalidWithError \(error)")
     }
     
     public func URLSession(session: NSURLSession, dataTask: NSURLSessionDataTask, didReceiveResponse response: NSURLResponse, completionHandler: (NSURLSessionResponseDisposition) -> Void) {
-        println("didReceiveResponse: \(response)")
+        print("didReceiveResponse: \(response)")
     }
     
     public func URLSession(session: NSURLSession, task: NSURLSessionTask, didSendBodyData bytesSent: Int64, totalBytesSent: Int64, totalBytesExpectedToSend: Int64) {
-        println("didSendBodyData")
+        print("didSendBodyData")
 
     }
     
     public func URLSession(session: NSURLSession, dataTask: NSURLSessionDataTask, didReceiveData data: NSData) {
-        println("didReceiveData")
+        print("didReceiveData")
         dispatch_async(dispatch_get_main_queue()) {
             let dataString = NSString(data: data, encoding: NSUTF8StringEncoding)
-            println("uploadImage dataString \(dataString)")
+            print("uploadImage dataString \(dataString)")
         }
     }
     
     public func URLSessionDidFinishEventsForBackgroundURLSession(session: NSURLSession) {
-        println("URLSessionDidFinishEventsForBackgroundURLSession")
+        print("URLSessionDidFinishEventsForBackgroundURLSession")
     }
     
     public func URLSession(session: NSURLSession, task: NSURLSessionTask, didCompleteWithError error: NSError?) {
-        println("didCompleteWithError: session \(session) task \(task) error \(error)")
+        print("didCompleteWithError: session \(session) task \(task) error \(error)")
     }
     
-    public func URLSession(session: NSURLSession, dataTask: NSURLSessionDataTask, willCacheResponse proposedResponse: NSCachedURLResponse, completionHandler: (NSCachedURLResponse!) -> Void) {
-        println("willCacheResponse")
+    public func URLSession(session: NSURLSession, dataTask: NSURLSessionDataTask, willCacheResponse proposedResponse: NSCachedURLResponse, completionHandler: (NSCachedURLResponse?) -> Void) {
+        print("willCacheResponse")
     }
 
 }

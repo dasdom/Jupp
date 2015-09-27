@@ -14,10 +14,10 @@ public class RequestFactory {
         
     }
     
-    public class func postRequestFromPostText(postText: String, var linksArray: [[String:String]], accessToken:String, imageDict: [String:AnyObject]? = nil, replyTo: Int? = nil) -> NSURLRequest {
-        var urlString = "https://api.app.net/posts?include_post_annotations=1"
-        var url = NSURL(string: urlString)
-        var postRequest = NSMutableURLRequest(URL: url!)
+    public class func postRequestFromPostText(postText: String, linksArray: [[String:String]], accessToken:String, imageDict: [String:AnyObject]? = nil, replyTo: Int? = nil) -> NSURLRequest {
+        let urlString = "https://api.app.net/posts?include_post_annotations=1"
+        let url = NSURL(string: urlString)
+        let postRequest = NSMutableURLRequest(URL: url!)
         
         let authorizationString = "Bearer " + accessToken;
         postRequest.addValue(authorizationString, forHTTPHeaderField: "Authorization")
@@ -46,10 +46,17 @@ public class RequestFactory {
         
         postDictionary["entities"] = ["links": linksArray, "parse_links": true]
         
-        println("postDictionary \(postDictionary)")
+        print("postDictionary \(postDictionary)")
         
         var error: NSError? = nil
-        let postData = NSJSONSerialization.dataWithJSONObject(postDictionary, options: nil, error: &error)
+        let postData: NSData?
+        do {
+            postData = try NSJSONSerialization.dataWithJSONObject(postDictionary, options: [])
+        } catch let error1 as NSError {
+            error = error1
+            postData = nil
+        }
+        print(error)
         
         postRequest.HTTPBody = postData
         
@@ -63,7 +70,7 @@ public class RequestFactory {
         dateFormatter.dateFormat = "yyyy_MM_dd'T'HH_mm_ss'Z'"
         let imageName = "\(dateFormatter.stringFromDate(NSDate()))"
         
-        var imageUploadRequest = NSMutableURLRequest(URL: NSURL(string: "https://alpha-api.app.net/stream/0/files")!)
+        let imageUploadRequest = NSMutableURLRequest(URL: NSURL(string: "https://alpha-api.app.net/stream/0/files")!)
         let authorizationString = "Bearer " + accessToken;
         imageUploadRequest.addValue(authorizationString, forHTTPHeaderField: "Authorization")
         
@@ -73,11 +80,11 @@ public class RequestFactory {
         let contentType = "multipart/form-data; boundary=\(boundary)"
         imageUploadRequest.addValue(contentType, forHTTPHeaderField: "Content-Type")
         
-        var postBody = NSMutableData()
+        let postBody = NSMutableData()
         postBody.appendData("\r\n--\(boundary)\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
         postBody.appendData("Content-Disposition: form-data; name=\"content\"; filename=\"\(imageName).jpg\"\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
         postBody.appendData("Content-Type: image/jpeg\r\n\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
-        postBody.appendData(imageData)
+        postBody.appendData(imageData!)
         postBody.appendData("\r\n--\(boundary)\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
 
         postBody.appendData("Content-Disposition: form-data; name=\"type\"\r\n\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)

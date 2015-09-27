@@ -67,7 +67,7 @@ class PostViewController: UIViewController, UITextViewDelegate, UIImagePickerCon
     super.viewWillAppear(animated)
     
     var buttonTitle = "Post"
-    if let accountIdentifier = NSUserDefaults.standardUserDefaults().stringForKey(kActiveTwitterAccountIdKey) {
+    if let _ = NSUserDefaults.standardUserDefaults().stringForKey(kActiveTwitterAccountIdKey) {
       buttonTitle = "Crosspost"
       crosspost = true
     } else {
@@ -98,9 +98,9 @@ class PostViewController: UIViewController, UITextViewDelegate, UIImagePickerCon
   @IBAction func post(sender: AnyObject) {
     
     var errorMessage: String?
-    if  count(postTextView.text!.utf16) < 1 {
+    if  postTextView.text!.utf16.count < 1 {
       errorMessage = NSLocalizedString("A post should have at least one character.", comment: "Empty post alert message")
-    } else if count(postTextView.text!.utf16) > 256 {
+    } else if postTextView.text!.utf16.count > 256 {
       errorMessage = NSLocalizedString("A post cannot have more than 256 characters.", comment: "To many characters alert message")
     }
     
@@ -129,7 +129,7 @@ class PostViewController: UIViewController, UITextViewDelegate, UIImagePickerCon
     isPosting = true
     
     sendActivityIndicator.startAnimating()
-    let session = NSURLSession.sharedSession()
+//    let session = NSURLSession.sharedSession()
     
     statusLabel.text = "Posting"
     finishedADNPosting = false
@@ -170,9 +170,9 @@ class PostViewController: UIViewController, UITextViewDelegate, UIImagePickerCon
     let linkExtractor = LinkExtractor()
     let (postText, linksArray) = linkExtractor.extractLinks(postTextView.text)
     
-    var (tweetOne, tweetTwo) = tweetsFromText(postText, linksArray: linksArray)
+    let (tweetOne, tweetTwo) = tweetsFromText(postText, linksArray: linksArray)
     
-    if count(tweetTwo.utf16) > 0 {
+    if tweetTwo.utf16.count > 0 {
       numberOfTweetLabel.text = "2 Tweets"
     } else {
       numberOfTweetLabel.text = "1 Tweet"
@@ -182,7 +182,7 @@ class PostViewController: UIViewController, UITextViewDelegate, UIImagePickerCon
   }
   
   private func updateCharacterCount() {
-    let characterCount = 256 - count(postTextView.text.utf16)
+    let characterCount = 256 - postTextView.text.utf16.count
     characterCountLabel.text = "\(characterCount)"
     if characterCount < 5 && characterCount >= 0 {
       characterCountLabel.textColor = UIColor.blackColor()
@@ -219,10 +219,10 @@ class PostViewController: UIViewController, UITextViewDelegate, UIImagePickerCon
   //MARK: Twitter
   func tweetText(text: String, linksArray: [[String:String]], accountIdentifier: String, image: UIImage?, completion: () -> ()) {
     
-    var (tweetOne, tweetTwo) = tweetsFromText(text, linksArray: linksArray)
+    let (tweetOne, tweetTwo) = tweetsFromText(text, linksArray: linksArray)
     
-    println("postTextPartOne: \(tweetOne)")
-    println("postTextPartTwo: \(tweetTwo)")
+    print("postTextPartOne: \(tweetOne)")
+    print("postTextPartTwo: \(tweetTwo)")
     
     var urlString = "https://api.twitter.com/1.1/statuses/update.json"
     if imageView.image != nil {
@@ -243,8 +243,8 @@ class PostViewController: UIViewController, UITextViewDelegate, UIImagePickerCon
     let account = accountStore?.accountWithIdentifier(accountIdentifier)
     tweetRequest.account = account
     tweetRequest.performRequestWithHandler { (tweetData, tweetResponse, tweetError) in
-      println("error: \(tweetError)")
-      println("tweetResponse: \(tweetResponse)")
+      print("error: \(tweetError)")
+      print("tweetResponse: \(tweetResponse)")
       
       if tweetResponse.statusCode != 200 {
         dispatch_async(dispatch_get_main_queue(), {
@@ -252,7 +252,7 @@ class PostViewController: UIViewController, UITextViewDelegate, UIImagePickerCon
           let alertMessage = "Tweeting didn't work."
           let alert = UIAlertController(title: "There was an error", message: alertMessage, preferredStyle: .Alert)
           let okAction = UIAlertAction(title: "OK", style: .Default, handler: { (action) -> Void in
-            println("OK")
+            print("OK")
           })
           alert.addAction(okAction)
           
@@ -268,15 +268,15 @@ class PostViewController: UIViewController, UITextViewDelegate, UIImagePickerCon
         let tweetRequest = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: .POST, URL: NSURL(string: "https://api.twitter.com/1.1/statuses/update.json"), parameters: parameters)
         tweetRequest.account = account
         tweetRequest.performRequestWithHandler { (tweetData, tweetResponse, tweetError) in
-          println("error: \(tweetError)")
-          println("tweetResponse: \(tweetResponse)")
+          print("error: \(tweetError)")
+          print("tweetResponse: \(tweetResponse)")
           
           dispatch_async(dispatch_get_main_queue(), {
             
             let alertMessage = "Tweet 1: \(tweetOne)" + "\n\n" + "Tweet 2: \(tweetTwo)"
             let alert = UIAlertController(title: "You tweeted two tweets:", message: alertMessage, preferredStyle: .Alert)
             let okAction = UIAlertAction(title: "OK", style: .Default, handler: { (action) -> Void in
-              println("OK")
+              print("OK")
             })
             alert.addAction(okAction)
             
@@ -298,13 +298,13 @@ class PostViewController: UIViewController, UITextViewDelegate, UIImagePickerCon
     var tweetTwo = ""
     
     var addToFirstPart = true
-    if count(text.utf16) > 140 {
+    if text.utf16.count > 140 {
       let components = text.componentsSeparatedByString(" ")
       
       tweetOne = ""
       for word in components {
-        if count(tweetOne.utf16) + count(word.utf16) > 130 {
-          if word.isURL() && count(tweetOne.utf16) + 10 < 130 {
+        if tweetOne.utf16.count + word.utf16.count > 130 {
+          if word.isURL() && tweetOne.utf16.count + 10 < 130 {
             addToFirstPart = true
           } else {
             addToFirstPart = false
@@ -328,7 +328,7 @@ class PostViewController: UIViewController, UITextViewDelegate, UIImagePickerCon
     }
     
     if tweetTwo != "" {
-      if count(tweetOne.utf16) < 134 {
+      if tweetOne.utf16.count < 134 {
         tweetOne = tweetOne + " ...\n1/2"
       }
       tweetTwo = "... " + tweetTwo + "\n2/2"
@@ -357,7 +357,7 @@ class PostViewController: UIViewController, UITextViewDelegate, UIImagePickerCon
   
   func keyboardWillShow(sender: NSNotification) {
     if let userInfo = sender.userInfo {
-      if let keyboardHeight = userInfo[UIKeyboardFrameEndUserInfoKey]?.CGRectValue().size.height {
+      if let keyboardHeight = userInfo[UIKeyboardFrameEndUserInfoKey]?.CGRectValue.size.height {
         textViewBottomConstraint.constant = keyboardHeight + 40.0
         UIView.animateWithDuration(0.25, animations: { () -> Void in
           self.view.layoutIfNeeded()
@@ -426,23 +426,25 @@ class PostViewController: UIViewController, UITextViewDelegate, UIImagePickerCon
 //        self.pictureImageView.image = artwork;
 //        self.postImage = artwork;
 //        
-//      }
-      
-      let title = song.valueForProperty(MPMediaItemPropertyTitle) as! String
-      let artist = song.valueForProperty(MPMediaItemPropertyArtist) as! String
-      if let artwork = song.valueForProperty(MPMediaItemPropertyArtwork)?.imageWithSize(CGSize(width: 200.0, height: 200.0)) {
-        self.imageView.image = artwork
-      }
-
-      if count(self.postTextView.text.utf16) < 1 {
-        self.postTextView.text = self.postTextView.text.stringByAppendingFormat("#nowplaying %@ - %@", title, artist)
-      } else {
-        self.postTextView.text = self.postTextView.text.stringByAppendingFormat("\n#nowplaying %@ - %@", title, artist)
-      }
-      
+        //      }
+        
+        if let song = song {
+            
+            let title = song.valueForProperty(MPMediaItemPropertyTitle) as! String
+            let artist = song.valueForProperty(MPMediaItemPropertyArtist) as! String
+            if let artwork = song.valueForProperty(MPMediaItemPropertyArtwork)?.imageWithSize(CGSize(width: 200.0, height: 200.0)) {
+                self.imageView.image = artwork
+            }
+            
+            if self.postTextView.text.utf16.count < 1 {
+                self.postTextView.text = self.postTextView.text.stringByAppendingFormat("#nowplaying %@ - %@", title, artist)
+            } else {
+                self.postTextView.text = self.postTextView.text.stringByAppendingFormat("\n#nowplaying %@ - %@", title, artist)
+            }
+        }
     }
     
-    if let song = song {
+    if let _ = song {
       actionViewController.addAction(nowPlayingAction)
     }
     presentViewController(actionViewController, animated: true, completion: nil)
@@ -456,7 +458,7 @@ class PostViewController: UIViewController, UITextViewDelegate, UIImagePickerCon
     }
   }
   
-  func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
+  func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
     let image = info[UIImagePickerControllerOriginalImage] as! UIImage
     imageView.image = image
     

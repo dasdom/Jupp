@@ -29,7 +29,7 @@ class LinkExtractorTests: XCTestCase {
         XCTAssertEqual(postTest, "My blog can be found at dasdev.de. Check it out.")
         
         var linkEntity = linkEntities[0]
-        println("linkEntity \(linkEntity)")
+        print("linkEntity \(linkEntity)")
 //        XCTAssertEqualObjects(linkEntity["url"]!, "dasdev.de")
         XCTAssertEqual(linkEntity["url"]!, "http://dasdev.de")
         XCTAssertEqual(linkEntity["pos"]!, "24")

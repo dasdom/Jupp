@@ -24,12 +24,12 @@ class SettingsTableViewController: UITableViewController {
     super.viewDidLoad()
     
     accountStore = ACAccountStore()
-    var accountType = accountStore!.accountTypeWithAccountTypeIdentifier(ACAccountTypeIdentifierTwitter)
+    let accountType = accountStore!.accountTypeWithAccountTypeIdentifier(ACAccountTypeIdentifierTwitter)
     
-    println("accountType: \(accountType)")
+    print("accountType: \(accountType)")
     
     accountStore!.requestAccessToAccountsWithType(accountType, options: nil, completion: { [unowned self] (granted, error) in
-      println("granted: \(granted)")
+      print("granted: \(granted)")
       self.twitterAccounts = self.accountStore?.accounts
       dispatch_async(dispatch_get_main_queue(), { () -> Void in
         self.tableView.reloadData()
@@ -76,7 +76,7 @@ class SettingsTableViewController: UITableViewController {
   
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier("twitterAccountCell", forIndexPath: indexPath) as! UITableViewCell
+    let cell = tableView.dequeueReusableCellWithIdentifier("twitterAccountCell", forIndexPath: indexPath) 
     
     let account = twitterAccounts![indexPath.row] as! ACAccount
     cell.textLabel!.text = account.username

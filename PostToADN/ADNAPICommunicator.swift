@@ -28,11 +28,15 @@ public class ADNAPICommunicator: NSObject, NSURLSessionDelegate, NSURLSessionDat
         session = NSURLSession.sharedSession()
         let sessionTask = session.dataTaskWithRequest(imageUploadRequest, completionHandler: { (data, response, error) -> Void in
             
-            let dataString = NSString(data: data, encoding: NSUTF8StringEncoding)
-            println("uploadImage dataString \(dataString)")
-            
-            let dictionary = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as! [String: AnyObject]
-            completion(dictionary)
+            if let data = data {
+                let dataString = NSString(data: data, encoding: NSUTF8StringEncoding)
+                print("uploadImage dataString \(dataString)")
+                
+                let dictionary = (try! NSJSONSerialization.JSONObjectWithData(data, options: [])) as! [String: AnyObject]
+                completion(dictionary)
+            } else {
+                completion([:])
+            }
         })
         sessionTask.resume()
         
@@ -52,8 +56,10 @@ public class ADNAPICommunicator: NSObject, NSURLSessionDelegate, NSURLSessionDat
             let session = NSURLSession.sharedSession()
             let sessionTask = session.dataTaskWithRequest(request, completionHandler: { (data, response, error) -> Void in
                 
-                let dataString = NSString(data: data, encoding: NSUTF8StringEncoding)
-                println("postText dataString \(dataString)")
+                if let data = data {
+                    let dataString = NSString(data: data, encoding: NSUTF8StringEncoding)
+                    print("postText dataString \(dataString)")
+                }
                 completion()
             })
             sessionTask.resume()
@@ -63,12 +69,12 @@ public class ADNAPICommunicator: NSObject, NSURLSessionDelegate, NSURLSessionDat
             uploadImage(image, accessToken: accessToken) { (dictionary) -> () in
                 let imageDict = dictionary["data"] as? [String:AnyObject]
                 
-                postText(text, linksArray, accessToken, imageDict, { () -> () in
+                postText(text, linksArray: linksArray, accessToken: accessToken, imageDict: imageDict, completion: { () -> () in
                     completion()
                 })
             }
         } else {
-            postText(text, linksArray, accessToken, nil, { () -> () in
+            postText(text, linksArray: linksArray, accessToken: accessToken, imageDict: nil, completion: { () -> () in
                 completion()
             })
         }

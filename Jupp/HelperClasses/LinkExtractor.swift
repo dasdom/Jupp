@@ -23,23 +23,23 @@ public class LinkExtractor {
         var currentlyScannedString: String?
         var scannerDidScan = true
         
-        do {
+        repeat {
             currentlyScannedString = stringToScan
             let scanner = NSScanner(string: currentlyScannedString!)
             scanner.charactersToBeSkipped = NSCharacterSet(charactersInString: "[]()")
             
             var string: NSString? = nil
             scannerDidScan = scanner.scanUpToString("[", intoString: &string)
-            stringToScan = string! as! String
-            var location = scanner.scanLocation-1
+            stringToScan = string! as String
+            let location = scanner.scanLocation-1
             
             var link: String? = nil
             var range: NSRange? = nil
             scannerDidScan = scanner.scanUpToString("](", intoString: &string)
             if scannerDidScan {
-                link = (string! as! String)
+                link = (string! as String)
                 range = NSRange(location: location, length: link!.lengthOfBytesUsingEncoding(NSUTF8StringEncoding))
-                stringToScan += string! as! String
+                stringToScan += string! as String
             } else {
                 continue
             }
@@ -54,25 +54,25 @@ public class LinkExtractor {
 //            println("currentlyScannedString count: \(countElements(currentlyScannedString!))")
             
             var endIndex = scanner.scanLocation
-            if count(currentlyScannedString!) > scanner.scanLocation {
+            if (currentlyScannedString!).characters.count > scanner.scanLocation {
                 endIndex++
             }
-            let index = advance(currentlyScannedString!.startIndex, endIndex)
+            let index = currentlyScannedString!.startIndex.advancedBy(endIndex)
             
-            var remainingString: String? = currentlyScannedString!.substringFromIndex(index)
+            let remainingString: String? = currentlyScannedString!.substringFromIndex(index)
 //            println("remainingString: \(remainingString)")
             stringToScan += remainingString!
             
-            println("stringToScan \(stringToScan)")
+            print("stringToScan \(stringToScan)")
             
 //            var linkEntity = LinkEntity(linkText: link!, linkURLString: urlString!, linkRange: range!)
             let linkDictionary = ["url": urlString!, "pos": "\(range!.location)", "len": "\(range!.length)"]
-            println("linkDictionary \(linkDictionary)")
+            print("linkDictionary \(linkDictionary)")
             
             linkArray.append(linkDictionary)
         } while scannerDidScan
         
-        let stringToReturn = stringToScan.substringFromIndex(advance(stringToScan.startIndex, 1))
+        let stringToReturn = stringToScan.substringFromIndex(stringToScan.startIndex.advancedBy(1))
 //        println("string: \(stringToReturn) linkArray \(linkArray)")
         
         // Remove the space at the beginning.

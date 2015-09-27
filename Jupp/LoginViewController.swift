@@ -32,7 +32,7 @@ class LoginViewController: UIViewController {
     @IBAction func login(sender: AnyObject) {
         passwordTextField.resignFirstResponder()
         
-        if count(usernameTextField.text.utf16) < 1 || count(passwordTextField.text.utf16) < 1 {
+        if usernameTextField.text?.utf16.count < 1 || passwordTextField.text?.utf16.count < 1 {
             let alertController = UIAlertController(title: NSLocalizedString("Error", comment: "Error message title"), message: NSLocalizedString("Please put in your username, password and touch log in.", comment: "Empty password or username field error message"), preferredStyle: .Alert)
             let okAction = UIAlertAction(title: NSLocalizedString("OK", comment: "Ok button title"), style: .Default, handler: nil)
             alertController.addAction(okAction)
@@ -45,56 +45,59 @@ class LoginViewController: UIViewController {
         let clientId = ClientData.clientId
         let passwordGrantSecret = ClientData.passwordGrantSecret
         
-        let username: String = usernameTextField.text.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLUserAllowedCharacterSet())!
-        let password: String = passwordTextField.text.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.alphanumericCharacterSet())!
+        let username: String = usernameTextField.text!.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLUserAllowedCharacterSet())!
+        let password: String = passwordTextField.text!.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.alphanumericCharacterSet())!
         
-        var postString = "client_id=\(clientId)&password_grant_secret=\(passwordGrantSecret)&grant_type=password&username=\(username)&password=\(password)&scope=write_post"
+        let postString = "client_id=\(clientId)&password_grant_secret=\(passwordGrantSecret)&grant_type=password&username=\(username)&password=\(password)&scope=write_post"
         
-        var request = NSMutableURLRequest(URL: NSURL(string: urlString)!)
+        let request = NSMutableURLRequest(URL: NSURL(string: urlString)!)
         request.HTTPMethod = "POST"
         request.HTTPBody = postString.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
         
-        println("start request")
+        print("start request")
 //        self.responseTextView.text = "start request"
 
         let session = NSURLSession.sharedSession()
         let sessionTask = session.dataTaskWithRequest(request, completionHandler: { (data, response, error) in
 //            dispatch_async(dispatch_get_main_queue(), { () -> Void in
 //                    self.responseTextView.text = "data task"
-//                })
+            //                })
             
-            let responseDict  = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as! [String:AnyObject]
-            println("responseDict: \(responseDict)")
-//            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-//                self.responseTextView.text = "\(responseDict)"
-//            })
-
-            if let error = responseDict["error"] as? NSString {
-                let errorText = responseDict["error_text"] as? NSString
-                let alertController = UIAlertController(title: "Error", message: (errorText as! String), preferredStyle: .Alert)
-                let okAction = UIAlertAction(title: "OK", style: .Default, handler: { (action) in
-                    self.usernameTextField.text = ""
-                    self.passwordTextField.text = ""
-                })
-                alertController.addAction(okAction)
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    self.presentViewController(alertController, animated: true, completion: { () -> Void in
+            if let data = data {
+                let responseDict  = (try! NSJSONSerialization.JSONObjectWithData(data, options: [])) as! [String:AnyObject]
+                print("responseDict: \(responseDict)")
+                //            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                //                self.responseTextView.text = "\(responseDict)"
+                //            })
+                
+                if let _ = responseDict["error"] as? NSString {
+                    let errorText = responseDict["error_text"] as? NSString
+                    let alertController = UIAlertController(title: "Error", message: (errorText as! String), preferredStyle: .Alert)
+                    let okAction = UIAlertAction(title: "OK", style: .Default, handler: { (action) in
+                        self.usernameTextField.text = ""
+                        self.passwordTextField.text = ""
                     })
-                })
-                return
-            }
-            
-            if let accessToken = responseDict["access_token"]! as? String {
+                    alertController.addAction(okAction)
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        self.presentViewController(alertController, animated: true, completion: { () -> Void in
+                        })
+                    })
+                    return
+                }
                 
-                KeychainAccess.setPassword(accessToken, account: "AccessToken")
-                
-//                let token = KeychainAccess.passwordForAccount("AccessToken")
-//                self.usernameTextField.text = accessToken
-                
-                self.dismissViewControllerAnimated(true, completion: nil)
-            }
+                if let accessToken = responseDict["access_token"]! as? String {
+                    
+                    KeychainAccess.setPassword(accessToken, account: "AccessToken")
+                    
+                    //                let token = KeychainAccess.passwordForAccount("AccessToken")
+                    //                self.usernameTextField.text = accessToken
 
-            
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        self.dismissViewControllerAnimated(true, completion: nil)
+                    })
+                }
+                
+            }
         })
         sessionTask.resume()
     }
