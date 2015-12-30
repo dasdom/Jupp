@@ -31,6 +31,7 @@
 		F29F8224199FE8DD009A5C3C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2E0ECDD1995EC4100854B6D /* Images.xcassets */; };
 		F2B9A88719978793002575FD /* RequestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B9A88619978793002575FD /* RequestFactory.swift */; };
 		F2B9A888199788CB002575FD /* PostToADN.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2049CD01995F64300047E23 /* PostToADN.framework */; };
+		F2C8D9371C289FCE006B1E22 /* Extract.js in Resources */ = {isa = PBXBuildFile; fileRef = F2C8D9361C289FCE006B1E22 /* Extract.js */; };
 		F2D75CF21A31D754008B2CC8 /* PostService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D75CF11A31D754008B2CC8 /* PostService.swift */; };
 		F2D75CF41A31DD14008B2CC8 /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D75CF31A31DD14008B2CC8 /* ImageService.swift */; };
 		F2D75CF51A31DFCA008B2CC8 /* KeychainAccess.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F29F81F6199FA739009A5C3C /* KeychainAccess.framework */; };
@@ -162,6 +163,7 @@
 		F29F8214199FA775009A5C3C /* KeychainAccess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainAccess.swift; sourceTree = "<group>"; };
 		F29F8222199FAE82009A5C3C /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		F2B9A88619978793002575FD /* RequestFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestFactory.swift; sourceTree = "<group>"; };
+		F2C8D9361C289FCE006B1E22 /* Extract.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = Extract.js; sourceTree = "<group>"; };
 		F2D75CF11A31D754008B2CC8 /* PostService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostService.swift; sourceTree = "<group>"; };
 		F2D75CF31A31DD14008B2CC8 /* ImageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
 		F2E0ECD11995EC4100854B6D /* Jupp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Jupp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -274,6 +276,7 @@
 			children = (
 				F246C140199785F500271001 /* ShareToADN.entitlements */,
 				F2049CF719961FF300047E23 /* ShareViewController.swift */,
+				F2C8D9361C289FCE006B1E22 /* Extract.js */,
 				F2049CF919961FF300047E23 /* MainInterface.storyboard */,
 				F2049CF519961FF300047E23 /* Supporting Files */,
 			);
@@ -574,7 +577,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftMigration = 0700;
-				LastSwiftUpdateCheck = 0700;
+				LastSwiftUpdateCheck = 0720;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Dominik Hauser";
 				TargetAttributes = {
@@ -670,6 +673,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F2C8D9371C289FCE006B1E22 /* Extract.js in Resources */,
 				F2049CFA19961FF300047E23 /* MainInterface.storyboard in Resources */,
 				F29F8224199FE8DD009A5C3C /* Images.xcassets in Resources */,
 			);

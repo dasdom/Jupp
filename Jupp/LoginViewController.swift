@@ -58,10 +58,12 @@ class LoginViewController: UIViewController {
 //        self.responseTextView.text = "start request"
 
         let session = NSURLSession.sharedSession()
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         let sessionTask = session.dataTaskWithRequest(request, completionHandler: { (data, response, error) in
-//            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
 //                    self.responseTextView.text = "data task"
-            //                })
+                UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+            })
             
             if let data = data {
                 let responseDict  = (try! NSJSONSerialization.JSONObjectWithData(data, options: [])) as! [String:AnyObject]

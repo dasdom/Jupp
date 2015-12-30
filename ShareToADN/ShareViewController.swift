@@ -63,6 +63,16 @@ class ShareViewController: SLComposeServiceViewController, NSURLSessionDelegate 
         var itemProvider: NSItemProvider?
         
         print("items: \(items)")
+
+//        if let first = (items?.first as! NSExtensionItem).userInfo {
+//           print(first)
+//            if let bla = first[NSExtensionItemAttributedContentTextKey] {
+//                let blub = String(data: bla as! NSData, encoding: NSUTF8StringEncoding)
+//                print("blub: \(blub)")
+//            }
+//        }
+//        let bla = String(data: [NSExtensionItemAttributedContentTextKey], encoding: NSUTF8StringEncoding)
+//        print(bla)
         
         if items != nil && items!.isEmpty == false {
             let item = items![0] as! NSExtensionItem
@@ -73,8 +83,11 @@ class ShareViewController: SLComposeServiceViewController, NSURLSessionDelegate 
                 for attachment in attachments {
                     itemProvider = attachment as? NSItemProvider
                     
+                    print("attachment \(attachment)")
+                    
                     let imageType = kUTTypeImage as NSString as String
                     let urlType = kUTTypeURL as NSString  as String
+                    let plistType = kUTTypePropertyList as String
                     
                     if itemProvider?.hasItemConformingToTypeIdentifier(urlType) == true {
                         itemProvider?.loadItemForTypeIdentifier(urlType, options: nil) { (item, error) -> Void in
@@ -87,10 +100,37 @@ class ShareViewController: SLComposeServiceViewController, NSURLSessionDelegate 
                     } else if itemProvider?.hasItemConformingToTypeIdentifier(imageType) == true {
                         itemProvider?.loadItemForTypeIdentifier(imageType, options: nil) { (item, error) -> Void in
                             if error == nil {
-                                print("item: \(item)")
+//                                print("item: \(item)")
                                 if let url = item as? NSURL {
                                     if let imageData = NSData(contentsOfURL: url) {
                                         self.imageToShare = UIImage(data: imageData)
+                                    }
+                                }
+                            }
+                        }
+                    } else if itemProvider?.hasItemConformingToTypeIdentifier(plistType) == true {
+                        itemProvider?.loadItemForTypeIdentifier(plistType, options: nil) { (item, error) -> Void in
+                            if error == nil {
+//                                print("item: \(item)")
+                                if let elements = (item as? NSDictionary)?[NSExtensionJavaScriptPreprocessingResultsKey] as? [String:String] {
+//                                    for (key, value) in elements {
+//                                        print(">>>>> \(key): \(value)")
+//                                    }
+                                    print(elements["URL"])
+                                    print(elements["selection"])
+                                    print(elements["title"])
+                                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                                        
+                                        if let selectedText = elements["selection"] {
+                                            self.textView.text = selectedText
+                                        } else if let title = elements["title"] {
+                                            self.textView.text = title
+                                        } else if let urlString = elements["URL"] {
+                                            self.textView.text = urlString
+                                        }
+                                    })
+                                    if let urlString = elements["URL"] {
+                                        self.urlToShare = NSURL(string: urlString)
                                     }
                                 }
                             }
@@ -146,13 +186,16 @@ class ShareViewController: SLComposeServiceViewController, NSURLSessionDelegate 
 //            let urlSessionTask = self.urlSession!.dataTaskWithRequest(RequestFactory.postRequestFromPostText(postString, linksArray: linksArray, accessToken: accessToken!), completionHandler: { (data, response, error) -> Void in
             let request = RequestFactory.postRequestFromPostText(postString, linksArray: linksArray, accessToken: accessToken!)
             print(request)
+            
             let urlSessionTask = session.dataTaskWithRequest(request, completionHandler: { (data, response, error) -> Void in
-                print("response: \(response)")
-                if let data = data {
-                    let responseString = NSString(data: data, encoding: NSUTF8StringEncoding)
-                    print("responseString: \(responseString)")
-                }
-                self.extensionContext!.completeRequestReturningItems(nil, completionHandler: nil)
+//                print("response: \(response)")
+//                if let data = data {
+//                    let responseString = NSString(data: data, encoding: NSUTF8StringEncoding)
+//                    print("responseString: \(responseString)")
+//                }
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    self.extensionContext!.completeRequestReturningItems(nil, completionHandler: nil)
+                })
             })
             
             urlSessionTask.resume()
@@ -160,9 +203,19 @@ class ShareViewController: SLComposeServiceViewController, NSURLSessionDelegate 
             activityIndicatorView.startAnimating()
             adnApiCommunicator.postText(contentText, linksArray: [], accessToken: accessToken!, image: imageToShare) {
                 print("finished")
-                self.extensionContext!.completeRequestReturningItems(nil, completionHandler: nil)
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    self.extensionContext!.completeRequestReturningItems(nil, completionHandler: nil)
+                })
+
             }
-            
+        } else {
+            activityIndicatorView.startAnimating()
+            adnApiCommunicator.postText(contentText, linksArray: [], accessToken: accessToken!, image: nil, completion: { () -> () in
+                print("finished")
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    self.extensionContext!.completeRequestReturningItems(nil, completionHandler: nil)
+                })
+            })
         }
         
     }
